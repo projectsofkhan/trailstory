@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instashan - Chats</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: #333333;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Mobile Phone Frame */
+        .phone-container {
+            width: 340px;
+            height: 680px;
+            background-color: #1a1a1a;
+            border-radius: 30px;
+            padding: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notch {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 25px;
+            background-color: #1a1a1a;
+            border-radius: 0 0 15px 15px;
+            z-index: 10;
+        }
+
+        .screen {
+            width: 100%;
+            height: calc(100% - 16px);
+            background-color: #000;
+            border-radius: 22px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 0 15px;
+            height: 35px;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 3;
+        }
+
+        .status-bar .left-icons, .status-bar .right-icons { 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .status-bar span { 
+            margin-right: 8px; 
+        }
+
+        .status-bar .center-text { 
+            font-size: 12px; 
+            font-weight: 500; 
+        }
+
+        /* App Structure */
+        .app-page {
+            flex: 1;
+            background: #000000 !important;
+            display: flex;
+            flex-direction: column;
+            margin-top: 35px;
+            height: calc(100% - 35px);
+        }
+
+        /* Chat Header - Instashan Theme */
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: #1a1a1a !important;
+            color: white;
+            height: 60px;
+            flex-shrink: 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .back-button:active {
+            background: rgba(225, 48, 108, 0.2);
+            transform: scale(0.95);
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            margin-left: 10px;
+        }
+
+        .contact-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #E1306C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-right: 12px;
+            overflow: hidden;
+            border: 2px solid #E1306C;
+        }
+
+        .contact-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 2px;
+            color: white;
+        }
+
+        .contact-status {
+            font-size: 12px;
+            opacity: 0.8;
+            color: #999;
+        }
+
+        .header-spacer {
+            width: 40px;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #000000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 0;
+            background: #000000;
+        }
+
+        /* Message Bubbles - Instashan Theme */
+        .message {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 8px;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .message.sent {
+            align-self: flex-end;
+            background: #E1306C;
+            border-bottom-right-radius: 4px;
+            color: white;
+        }
+
+        .message.received {
+            align-self: flex-start;
+            background: #1a1a1a;
+            border-bottom-left-radius: 4px;
+            color: white;
+            border: 1px solid #333;
+        }
+
+        .message-content {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: #999;
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        .message.received .message-time {
+            text-align: left;
+            color: #666;
+        }
+
+        /* Choice Container */
+        .choice-container {
+            padding: 15px;
+            background: #1a1a1a !important;
+            border-top: 1px solid #333;
+            display: flex;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .choice-button {
+            background: #E1306C;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .choice-button:active {
+            background: #c2185b;
+            transform: scale(0.95);
+        }
+
+        .choice-button:disabled {
+            background: #333;
+            cursor: not-allowed;
+            transform: none;
+            color: #666;
+        }
+
+        /* Home Bar */
+        .home-bar {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            z-index: 10;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrollbar Styling */
+        .chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 2px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Instashan</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="app-page">
+                <!-- Chat Header -->
+                <div class="chat-header">
+                    <button class="back-button" onclick="returnToProfile()">←</button>
+                    <div class="contact-info">
+                        <div class="contact-avatar">
+                            M
+                            <!-- <img src="https://projectsofkhan.github.io/pythontodoapp/profileimage.jpg" alt="Eric"> -->
+                        </div>
+                        <div class="contact-details">
+                            <div class="contact-name">Mom</div>
+                            <div class="contact-status">Active</div>
+                        </div>
+                    </div>
+                    <div class="header-spacer"></div>
+                </div>
+
+                <!-- Chat Container -->
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Messages will appear here -->
+                    </div>
+
+                    <div class="choice-container">
+                        <button class="choice-button" id="choiceBtn">Start Chat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+
+    <script>
+        // Chat functionality
+        let currentStep = 0;
+        let messages = [];
+        let isProcessing = false;
+
+        // Questions and their fixed answers
+        const questions = [
+            "Hey Eric!",
+            "How are you doing?",
+            "I saw your post with Sahil, looks fun!",
+            "Who's Ahmet? You mentioned him in a post",
+            "Oh interesting! Tell me more about him",
+            "Thanks for sharing! Stay safe"
+        ];
+
+        // Answers from Eric
+        const answers = [
+            "Hey there! 👋",
+            "I'm doing great, thanks for asking!",
+            "Haha yeah, that was a fun day! Sahil's awesome 😄",
+            "Ahmet's an old friend. We used to hang out a lot before he moved",
+            "He was really into photography and cars. Smart guy, but kind of mysterious",
+            "Thanks! You too 👊"
+        ];
+
+        // ========== BACK BUTTON FUNCTION ==========
+        function returnToProfile() {
+            console.log('🔙 Returning to Instashan profile...');
+            // Redirect back to Instashan profile
+            window.location.href = '../chats/chats.html';
+        }
+
+        // Update time
+        function updateTime() {
+            const currentTimeElement = document.getElementById('current-time');
+            if (currentTimeElement) {
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                currentTimeElement.textContent = `${hours}:${minutes}`;
+            }
+        }
+
+        // Sound files
+        const sentSound = new Audio('https://assets.mixkit.co/active_storage/sfx/221/221-preview.mp3');
+        const receiveSound = new Audio('https://assets.mixkit.co/active_storage/sfx/247/247-preview.mp3');
+
+        function playSound(sound) {
+            sound.currentTime = 0;
+            sound.volume = 0.3;
+            sound.play().catch(e => {
+                console.log('Audio play failed:', e);
+            });
+        }
+
+        function addMessage(text, type) {
+            const now = new Date();
+            const timeString = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `
+                <div class="message-content">${text}</div>
+                <div class="message-time">${timeString}</div>
+            `;
+
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.appendChild(messageDiv);
+
+            // Scroll to bottom
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 50);
+
+            // Store message
+            messages.push({ 
+                id: messages.length + 1, 
+                content: text, 
+                time: timeString, 
+                type 
+            });
+
+            // Play sound
+            if (type === 'sent') {
+                playSound(sentSound);
+            } else if (type === 'received') {
+                playSound(receiveSound);
+            }
+        }
+
+        function updateChoiceButton() {
+            const choiceButton = document.getElementById('choiceBtn');
+            if (currentStep < questions.length) {
+                choiceButton.textContent = questions[currentStep];
+                choiceButton.disabled = false;
+            } else {
+                choiceButton.textContent = "Chat Ended";
+                choiceButton.disabled = true;
+            }
+        }
+
+        function selectChoice() {
+            if (isProcessing || currentStep >= questions.length) return;
+
+            isProcessing = true;
+            const choiceButton = document.getElementById('choiceBtn');
+            const question = questions[currentStep];
+            choiceButton.disabled = true;
+
+            // Add user's message
+            addMessage(question, 'sent');
+
+            // Simulate typing delay, then add response
+            setTimeout(() => {
+                const answer = answers[currentStep];
+                addMessage(answer, 'received');
+
+                currentStep++;
+
+                // Re-enable button for next question
+                setTimeout(() => {
+                    updateChoiceButton();
+                    isProcessing = false;
+                }, 1000);
+
+            }, 1500);
+        }
+
+        function initChat() {
+            console.log("💬 Chat was initialized");
+            updateChoiceButton();
+            
+            // Event listener for choice button
+            const choiceButton = document.getElementById('choiceBtn');
+            choiceButton.addEventListener('click', selectChoice);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTime();
+            setInterval(updateTime, 60000);
+            initChat();
+            
+            // Make functions globally available
+            window.selectChoice = selectChoice;
+            window.returnToProfile = returnToProfile;
+        });
+    </script>
+</body>
+</html>

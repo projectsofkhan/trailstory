@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <title>Diary Locked</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: #333333;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Mobile Phone Frame */
+        .phone-container {
+            width: 340px;
+            height: 680px;
+            background-color: #1a1a1a;
+            border-radius: 30px;
+            padding: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notch {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 25px;
+            background-color: #1a1a1a;
+            border-radius: 0 0 15px 15px;
+            z-index: 10;
+        }
+
+        .screen {
+            width: 100%;
+            height: calc(100% - 16px);
+            background-color: #000;
+            border-radius: 22px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 0 15px;
+            height: 35px;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 3;
+        }
+
+        .status-bar .left-icons, .status-bar .right-icons { 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .status-bar span { 
+            margin-right: 8px; 
+        }
+
+        .status-bar .center-text { 
+            font-size: 12px; 
+            font-weight: 500; 
+        }
+
+        /* App Structure */
+        .app-page {
+            flex: 1;
+            background: #000000 !important;
+            display: flex;
+            flex-direction: column;
+            margin-top: 35px;
+            height: calc(100% - 35px);
+        }
+
+        /* Header */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #1a1a1a !important;
+            color: white;
+            height: 50px;
+            flex-shrink: 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            font-weight: bold;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .back-button:active {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(0.95);
+        }
+
+        .app-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .header-spacer {
+            width: 40px;
+        }
+
+        /* Locked Content */
+        .locked-container {
+            flex: 1;
+            background: #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .lock-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            color: #A08E77;
+        }
+
+        .locked-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #A08E77;
+            margin-bottom: 12px;
+        }
+
+        .locked-message {
+            font-size: 1rem;
+            color: #8a7a66;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            max-width: 280px;
+        }
+
+        .unlock-info {
+            background: rgba(160, 142, 119, 0.15);
+            border: 1px solid rgba(160, 142, 119, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            max-width: 280px;
+        }
+
+        .unlock-text {
+            color: #ccb9a1;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        /* Home Bar */
+        .home-bar {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            z-index: 10;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .locked-container > * {
+            animation: fadeIn 0.6s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Diary</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="app-page">
+                <div class="app-header">
+                    <button class="back-button" onclick="goBackToHome()">←</button>
+                    <div class="app-title">Diary</div>
+                    <div class="header-spacer"></div>
+                </div>
+
+                <div class="locked-container">
+                    <div class="lock-icon">🔒</div>
+                    <h2 class="locked-title">Diary Locked</h2>
+                    <p class="locked-message">
+                        This diary entry is not available yet. Complete the required tasks to unlock access.
+                    </p>
+                    
+                    <div class="unlock-info">
+                        <p class="unlock-text">
+                            Complete investigation tasks to unlock your personal diary entries and case notes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+
+    <script>
+        // Update time
+        function updateTime() {
+            const currentTimeElement = document.getElementById('current-time');
+            if (currentTimeElement) {
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                currentTimeElement.textContent = `${hours}:${minutes}`;
+            }
+        }
+
+        // Go back to home
+        function goBackToHome() {
+            window.location.href = 'https://projectsofkhan.github.io/Trail/apps/diary/index.html';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTime();
+            setInterval(updateTime, 60000);
+
+            // Add click sound for buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    playClickSound();
+                });
+            });
+        });
+
+        function playClickSound() {
+            const sound = new Audio('../../sounds/click.mp3');
+            sound.volume = 0.3;
+            sound.play().catch(e => console.log('Sound error:', e));
+        }
+
+        // Support back button
+        window.addEventListener('popstate', function() {
+            goBackToHome();
+        });
+
+        // Support escape key
+        window.onkeydown = function(e) {
+            if (e.key === 'Escape') {
+                goBackToHome();
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Locked</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: #333333;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Mobile Phone Frame */
+        .phone-container {
+            width: 340px;
+            height: 680px;
+            background-color: #1a1a1a;
+            border-radius: 30px;
+            padding: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notch {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 25px;
+            background-color: #1a1a1a;
+            border-radius: 0 0 15px 15px;
+            z-index: 10;
+        }
+
+        .screen {
+            width: 100%;
+            height: calc(100% - 16px);
+            background-color: #000;
+            border-radius: 22px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 0 15px;
+            height: 35px;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 3;
+        }
+
+        .status-bar .left-icons, .status-bar .right-icons { 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .status-bar span { 
+            margin-right: 8px; 
+        }
+
+        .status-bar .center-text { 
+            font-size: 12px; 
+            font-weight: 500; 
+        }
+
+        /* App Structure */
+        .app-page {
+            flex: 1;
+            background: #FFFFFF !important;
+            display: flex;
+            flex-direction: column;
+            margin-top: 35px;
+            height: calc(100% - 35px);
+        }
+
+        /* Header */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #128C7E !important;
+            color: white;
+            height: 50px;
+            flex-shrink: 0;
+            border-bottom: 1px solid #0a6b5e;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .back-button:active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(0.95);
+        }
+
+        .app-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .header-spacer {
+            width: 40px;
+        }
+
+        /* Locked Content */
+        .locked-container {
+            flex: 1;
+            background: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .lock-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #128C7E;
+        }
+
+        .locked-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .locked-message {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            max-width: 280px;
+        }
+
+        .unlock-button {
+            background: #128C7E;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .unlock-button:active {
+            background: #0a6b5e;
+            transform: scale(0.98);
+        }
+
+        /* Home Bar */
+        .home-bar {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Messages</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="app-page">
+                <div class="app-header">
+                    <button class="back-button" onclick="goBackToMessages()">←</button>
+                    <div class="app-title">Chat</div>
+                    <div class="header-spacer"></div>
+                </div>
+
+                <div class="locked-container">
+                    <div class="lock-icon">🔒</div>
+                    <h2 class="locked-title">Chat Locked</h2>
+                    <p class="locked-message">
+                        This conversation is not available yet. Complete the required tasks to unlock this chat.
+                    </p>
+
+                    <button class="unlock-button" onclick="goBackToMessages()">
+                        Back to Messages
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+
+    <script>
+        // Update time
+        function updateTime() {
+            const currentTimeElement = document.getElementById('current-time');
+            if (currentTimeElement) {
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                currentTimeElement.textContent = `${hours}:${minutes}`;
+            }
+        }
+
+        // Go back to messages list
+        function goBackToMessages() {
+            window.location.href = 'https://projectsofkhan.github.io/Trail/apps/messages/index.html';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTime();
+            setInterval(updateTime, 60000);
+
+            // Add click sound for buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    playClickSound();
+                });
+            });
+        });
+
+        function playClickSound() {
+            const sound = new Audio('../../sounds/click.mp3');
+            sound.volume = 0.3;
+            sound.play().catch(e => console.log('Sound error:', e));
+        }
+
+        // Support back button
+        window.addEventListener('popstate', function() {
+            goBackToMessages();
+        });
+
+        // Support escape key
+        window.onkeydown = function(e) {
+            if (e.key === 'Escape') {
+                goBackToMessages();
+            }
+        };
+    </script>
+</body>
+</html>

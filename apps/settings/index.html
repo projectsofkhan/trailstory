@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <title>Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Settings</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="app-page">
+                <div class="app-header dark">
+                    <button class="back-button" onclick="closeAppAndReturnHome()">←</button>
+                    <div class="app-title">Settings</div>
+                    <div style="width: 40px;"></div>
+                </div>
+
+                <div class="app-content">
+                    <!-- Settings Header -->
+                    <div class="settings-header">
+                        <div class="settings-logo">Settings</div>
+                        <div class="settings-subtitle">Customize your experience</div>
+                    </div>
+
+                    <!-- Main Settings Section -->
+                    <div class="settings-main">
+                        <div class="settings-row">
+                            <!-- Try Pro Box -->
+                            <div class="try-pro-box" onclick="showTryPro()">
+                                <div class="try-pro-icon">⭐</div>
+                                <div class="try-pro-text">
+                                    <div class="try-pro-title">Try Pro</div>
+                                    <div class="try-pro-desc">Unlock premium features</div>
+                                </div>
+                            </div>
+
+                            <!-- Audio Controls -->
+                            <div class="audio-controls">
+                                <div class="audio-button" onclick="showMusicSelection()">
+                                    <div class="audio-icon">🎵</div>
+                                    <div class="audio-text">
+                                        <div class="audio-title">Background Music</div>
+                                        <div class="audio-status" id="musicStatus">Off</div>
+                                    </div>
+                                </div>
+
+                                <div class="audio-button" onclick="toggleSoundEffects()">
+                                    <div class="audio-icon">🔊</div>
+                                    <div class="audio-text">
+                                        <div class="audio-title">Sound Effects</div>
+                                        <div class="audio-status" id="soundStatus">On</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Buttons -->
+                        <div class="bottom-buttons">
+                            <div class="bottom-button" onclick="mailUs()">
+                                <div class="bottom-icon">📧</div>
+                                <div class="bottom-text">Mail Us</div>
+                            </div>
+
+                            <div class="bottom-button" onclick="showHelp()">
+                                <div class="bottom-icon">❓</div>
+                                <div class="bottom-text">Support</div>
+                            </div>
+
+                            <div class="bottom-button" onclick="openBlitzRacer()">
+                                <img src="https://projectsofkhan.github.io/Trail/apps/task/ad1.jpg" class="bottom-app-icon" alt="BlitzRacer">
+                                <div class="bottom-text">BlitzRacer</div>
+                            </div>
+
+                            <div class="bottom-button" onclick="openZeeAi()">
+                                <img src="https://projectsofkhan.github.io/Trail/apps/task/ad2.png" class="bottom-app-icon" alt="ZeeAi">
+                                <div class="bottom-text">ZeeAi</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Try Pro Overlay -->
+        <div id="tryProOverlay" class="try-pro-overlay">
+            <div class="try-pro-container">
+                <img src="trypro.jpg" alt="Try Pro" class="try-pro-image" onerror="this.style.display='none'">
+                <button class="close-try-pro" onclick="closeTryPro()">✕</button>
+            </div>
+        </div>
+
+        <!-- Music Selection Overlay -->
+        <div id="musicSelectionOverlay" class="music-selection-overlay">
+            <div class="music-selection-container">
+                <button class="close-music-selection" onclick="closeMusicSelection()">✕</button>
+                <h3>Choose Background Music</h3>
+                <div class="music-options">
+                    <div class="music-option" onclick="selectMusic('music1')">
+                        <div class="music-icon">🎵</div>
+                        <div class="music-text">
+                            <div class="music-title">Music One</div>
+                            <div class="music-desc">Relaxing ambient</div>
+                        </div>
+                    </div>
+                    <div class="music-option" onclick="selectMusic('music2')">
+                        <div class="music-icon">🎶</div>
+                        <div class="music-text">
+                            <div class="music-title">Music Two</div>
+                            <div class="music-desc">Upbeat melody</div>
+                        </div>
+                    </div>
+                    <div class="music-option turn-off-option" onclick="turnOffMusic()">
+                        <div class="music-icon">🔇</div>
+                        <div class="music-text">
+                            <div class="music-title">Turn Off</div>
+                            <div class="music-desc">No background music</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+
+    <!-- Background Music Elements -->
+    <audio id="bgMusic1" loop>
+        <source src="bgmusic.mp3" type="audio/mpeg">
+        <source src="bgmusic.wav" type="audio/wav">
+    </audio>
+    <audio id="bgMusic2" loop>
+        <source src="bgmusic2.mp3" type="audio/mpeg">
+        <source src="bgmusic2.wav" type="audio/wav">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

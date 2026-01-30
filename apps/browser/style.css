@@ -1,0 +1,650 @@
+/* Phone Frame Styles */
+:root {
+    --phone-width: 340px;
+    --phone-height: 680px;
+    --border-radius: 30px;
+    --frame-color: #1a1a1a;
+    --status-bar-height: 35px;
+    --app-icon-size: 58px;
+    --app-label-color: #ffffff;
+    --app-grid-gap: 18px;
+    --app-label-font-size: 11px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent !important;
+    tap-highlight-color: transparent !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+}
+
+/* Remove focus outline for all buttons */
+button {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #333333;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+/* Phone Frame */
+.phone-container {
+    width: var(--phone-width);
+    height: var(--phone-height);
+    background-color: var(--frame-color);
+    border-radius: var(--border-radius);
+    padding: 8px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    position: relative;
+    overflow: hidden;
+}
+
+.notch {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 130px;
+    height: 25px;
+    background-color: var(--frame-color);
+    border-radius: 0 0 15px 15px;
+    z-index: 10;
+}
+
+/* Screen Area */
+.screen {
+    width: 100%;
+    height: calc(100% - 16px);
+    background-color: #000;
+    border-radius: calc(var(--border-radius) - 8px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Status Bar */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 0 15px;
+    height: var(--status-bar-height);
+    background-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+}
+
+.status-bar .left-icons, .status-bar .right-icons { 
+    display: flex; 
+    align-items: center; 
+}
+
+.status-bar span { 
+    margin-right: 8px; 
+}
+
+.status-bar .center-text { 
+    font-size: 12px; 
+    font-weight: 500; 
+}
+
+/* App Header */
+.app-page.dark-mode {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+    flex-shrink: 0;
+}
+
+.app-header.dark {
+    background: #1a1a1a;
+    color: white;
+}
+
+/* Enhanced Back Button - No White Highlight */
+.back-button {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.back-button:active {
+    background: #2d2d2d;
+}
+
+.app-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+}
+
+/* Browser Styles */
+.browser-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #000;
+    overflow: hidden;
+}
+
+.browser-navbar {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+/* Navigation Controls - Only Home button */
+.nav-controls {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+.nav-button {
+    background: #2d2d2d;
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-button:active {
+    background: #3d3d3d;
+}
+
+.nav-button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.url-bar {
+    flex: 1;
+    background: #2d2d2d;
+    border-radius: 10px;
+    padding: 10px 15px;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.url-bar input {
+    background: none;
+    border: none;
+    color: white;
+    flex: 1;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+}
+
+.url-bar input::placeholder {
+    color: #888;
+}
+
+.refresh-button {
+    background: none;
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    flex-shrink: 0;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.refresh-button:active {
+    background: #2d2d2d;
+    border-radius: 6px;
+}
+
+.browser-content {
+    flex: 1;
+    padding: 0;
+    overflow-y: auto;
+    background: #000;
+    -webkit-overflow-scrolling: touch;
+}
+
+.browser-content::-webkit-scrollbar {
+    display: none;
+}
+
+.browser-content {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.home-page {
+    padding: 20px;
+    min-height: fit-content;
+}
+
+.section-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+    margin: 25px 0 15px 0;
+    padding: 0 5px;
+}
+
+.recently-visited {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 5px;
+    border: 1px solid #333;
+}
+
+.recent-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.recent-item:last-child {
+    border-bottom: none;
+}
+
+.recent-item:active {
+    background: #2d2d2d;
+    border-radius: 8px;
+    margin: 0 -10px;
+    padding: 12px 10px;
+}
+
+.recent-title {
+    font-weight: 500;
+    color: white;
+    margin-bottom: 2px;
+}
+
+.recent-url {
+    font-size: 14px;
+    color: #888;
+}
+
+.no-history {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 30px 0;
+}
+
+.suggested-section {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #333;
+}
+
+.suggested-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.suggested-item {
+    background: #2d2d2d;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.suggested-item:active {
+    background: #3d3d3d;
+    transform: scale(0.98);
+}
+
+.suggested-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 8px;
+    border: 2px solid #444;
+}
+
+.suggested-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+}
+
+.search-results {
+    padding: 20px;
+    background: #000;
+    min-height: fit-content;
+}
+
+.result-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-item:active {
+    background: #2d2d2d;
+    border-radius: 8px;
+    margin: 0 -10px;
+    padding: 15px 10px;
+}
+
+.result-title {
+    font-weight: 500;
+    color: #8ab4f8;
+    margin-bottom: 4px;
+    font-size: 16px;
+}
+
+.result-url {
+    font-size: 14px;
+    color: #0f9d58;
+    margin-bottom: 6px;
+}
+
+.result-desc {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.4;
+}
+
+.website-content {
+    padding: 20px;
+    background: #000;
+    min-height: fit-content;
+}
+
+.website-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.website-url {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.website-body {
+    line-height: 1.6;
+    color: white;
+}
+
+.info-box {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    border-left: 4px solid #007AFF;
+    color: white;
+}
+
+.error-message {
+    background: #2d2d2d;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #ff6b6b;
+    margin: 20px 0;
+}
+
+.map-image {
+    width: 100%;
+    border-radius: 10px;
+    margin: 15px 0;
+    border: 2px solid #333;
+    max-width: 100%;
+}
+
+.image-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.image-caption {
+    color: #888;
+    font-size: 14px;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.curved-image {
+    width: 100%;
+    border-radius: 15px;
+    margin: 15px 0;
+    border: 2px solid #444;
+    max-width: 100%;
+}
+
+.content-image {
+    width: 100%;
+    border-radius: 12px;
+    margin: 20px 0;
+    border: 2px solid #333;
+    max-width: 100%;
+}
+
+/* Mobile App Navigation Styles */
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(4, var(--app-icon-size));
+    gap: var(--app-grid-gap);
+    margin-top: 35px;
+    padding: 0 10px;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.app-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.1s;
+    text-decoration: none !important;
+    color: inherit !important;
+    outline: none !important;
+    border: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.app-icon:focus, .app-icon:active, .app-icon:hover {
+    text-decoration: none !important;
+    color: inherit !important;
+    outline: none !important;
+    border: none !important;
+}
+
+.app-icon-body {
+    width: var(--app-icon-size);
+    height: var(--app-icon-size);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    margin-bottom: 5px;
+    transition: transform 0.15s ease-out;
+}
+
+.app-icon-label {
+    color: var(--app-label-color);
+    font-size: var(--app-label-font-size);
+    font-weight: 500;
+}
+
+.app-icon:active .app-icon-body {
+    transform: scale(0.9);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Home Bar */
+.home-bar {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 2px;
+    z-index: 10;
+}
+
+/* App Navigation Overlay */
+#appNavigation {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 340px;
+    padding: 0 20px 20px 20px;
+    color: white;
+}
+
+.nav-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.close-nav {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.close-nav:active {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* App Button in Browser */
+.app-button {
+    background: none;
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    flex-shrink: 0;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.app-button:active {
+    background: #2d2d2d;
+    border-radius: 6px;
+}

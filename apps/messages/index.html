@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Messages</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="app-page">
+                <div class="app-header">
+                    <button class="back-button" onclick="closeAppAndReturnHome()">←</button>
+                    <div class="app-title">Messages</div>
+                    <div class="header-spacer"></div>
+                </div>
+
+                <div class="messages-container">
+                    <div class="search-bar">
+                        <input type="text" class="search-input" placeholder="Search..." id="searchInput">
+                    </div>
+
+                    <div class="contacts-list" id="contactsList">
+                        <!-- Contacts will be loaded here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+
+    <script src="script.js"></script>
+<script src="https://projectsofkhan.github.io/Trail/apps/task/taskprogress.js"></script>
+</body>
+</html>

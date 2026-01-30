@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1a1a1a">
+    <title>Diary - Page 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Diary - Page 1</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="app-page">
+                <div class="app-header">
+                    <button class="back-button" onclick="goBackToDiary()">←</button>
+                    <div class="app-title">Diary - Page 01</div>
+                    <div style="width: 40px;"></div>
+                </div>
+
+                <!-- YELLOW SCROLLABLE CONTENT -->
+                <div class="yellow-content">
+                    <div class="diary-paper">
+                        <div class="page-number-header">PAGE 01</div>
+                        
+                        <!-- Riddle Section -->
+                        <div class="riddle-section" id="riddle-section">
+                            <div class="riddle-text">
+                                <div class="riddle-line">
+                                    I chased by 
+                                    <div class="blank-container">
+                                        <input type="text" 
+                                               class="blank-input" 
+                                               id="blank1" 
+                                               placeholder="First word" 
+                                               maxlength="10"
+                                               autocomplete="off">
+                                        <div class="blank-underscore"></div>
+                                    </div>
+                                    , all the day
+                                </div>
+                                <div class="riddle-line">
+                                    Until the light was taken away.
+                                </div>
+                                <div class="riddle-line">
+                                    Then in the dark I came to see,
+                                </div>
+                                <div class="riddle-line">
+                                    My 
+                                    <div class="blank-container">
+                                        <input type="text" 
+                                               class="blank-input" 
+                                               id="blank2" 
+                                               placeholder="Second word" 
+                                               maxlength="10"
+                                               autocomplete="off">
+                                        <div class="blank-underscore"></div>
+                                    </div>
+                                    was just part of me.
+                                </div>
+                            </div>
+                            
+                            <div class="message-display" id="message"></div>
+                            
+                            <div class="controls-container">
+                                <button class="unlock-button" id="unlock-btn" onclick="checkAnswers()">
+                                    Unlock Page
+                                </button>
+                                <button class="hint-button" onclick="showAd()">
+                                    Get Hint
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Hidden Content -->
+                        <div class="hidden-content" id="hidden-content">
+                            <h2>The 12 February</h2>
+                            <p>Today was a quiet and simple day. I woke up early, got ready, and went on with my usual routine. Nothing very special happened, but it didn’t feel like a bad day either. I talked to a few friends, did my work, and spent some time thinking about future plans. Sometimes these ordinary days feel boring, but I guess they are important too.</p>
+                            
+                           <p>At night, I felt a little tired but peaceful. I hope tomorrow brings something new to learn and something good to remember.</p>
+                       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ad Overlay -->
+        <div id="adOverlay" class="ad-overlay">
+            <div class="ad-container">
+                <div id="adText" class="ad-text"></div>
+                <img id="adImage" alt="Advertisement" class="ad-image">
+                <div id="adTimer" class="ad-timer">Ad ends in 3s</div>
+                <button class="see-hint-button" onclick="showHint()" id="seeHintBtn">See Hint</button>
+            </div>
+        </div>
+
+        <!-- Task Completion Popup -->
+        <div id="taskCompletionPopup" class="task-completion-popup">
+            <div class="task-completion-content">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🎉</div>
+                <h3 style="margin: 0 0 10px 0; font-size: 1.4rem; font-weight: 600;">Task 7 Complete!</h3>
+                <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 12px; margin: 15px 0;">
+                    <div style="font-size: 1.1rem; font-weight: 500; margin-bottom: 5px;">Diary Page 1 Solved</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Riddle solved successfully</div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.15); padding: 12px; border-radius: 10px; margin: 15px 0;">
+                    <div style="font-size: 1.8rem; margin-right: 10px;">✅</div>
+                    <div style="text-align: left;">
+                        <div style="font-size: 0.9rem; font-weight: 500;">Progress Updated</div>
+                        <div style="font-size: 0.8rem; opacity: 0.9;">Task Manager will show completion</div>
+                    </div>
+                </div>
+                <button onclick="closeTaskPopup()" style="
+                    background: white;
+                    color: #128C7E;
+                    border: none;
+                    padding: 12px 30px;
+                    border-radius: 25px;
+                    font-weight: 600;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    margin-top: 10px;
+                ">Continue</button>
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <title>Instashan - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: #333333;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Mobile Phone Frame */
+        .phone-container {
+            width: 340px;
+            height: 680px;
+            background-color: #1a1a1a;
+            border-radius: 30px;
+            padding: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notch {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 25px;
+            background-color: #1a1a1a;
+            border-radius: 0 0 15px 15px;
+            z-index: 10;
+        }
+
+        .screen {
+            width: 100%;
+            height: calc(100% - 16px);
+            background-color: #000;
+            border-radius: 22px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 0 15px;
+            height: 35px;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 3;
+        }
+
+        .status-bar .left-icons, .status-bar .right-icons { 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .status-bar span { 
+            margin-right: 8px; 
+        }
+
+        .status-bar .center-text { 
+            font-size: 12px; 
+            font-weight: 500; 
+        }
+
+        /* Login Content */
+        .login-container {
+            flex: 1;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            margin-top: 35px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #E1306C;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #E1306C;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            background: #E1306C;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .login-button:active {
+            background: #C13584;
+            transform: scale(0.98);
+        }
+
+        .forgot-password {
+            color: #E1306C;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 15px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #FF6B6B;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 15px;
+            min-height: 20px;
+        }
+
+        .recovery-section {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .recovery-question {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .recovery-input {
+            width: 100%;
+            padding: 12px;
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .recovery-button {
+            width: 100%;
+            padding: 12px;
+            background: #E1306C;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Home Bar */
+        .home-bar {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Instashan</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="login-container">
+                <div class="logo">Instashan</div>
+                
+                <div class="login-form">
+                    <div class="input-group">
+                        <input type="text" class="input-field" id="username" placeholder="Username" value="Eric">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="input-field" id="password" placeholder="Password">
+                    </div>
+                    <button class="login-button" onclick="login()">Log In</button>
+                    <div class="forgot-password" onclick="showRecovery()">Forgot Password?</div>
+                    <div class="error-message" id="errorMessage"></div>
+                    
+                    <div class="recovery-section" id="recoverySection">
+                        <div class="recovery-question">What is Eric's nickname?</div>
+                        <input type="text" class="recovery-input" id="recoveryAnswer" placeholder="Enter answer">
+                        <button class="recovery-button" onclick="recoverPassword()">Recover Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+
+    <script>
+        // Update time
+        function updateTime() {
+            const currentTimeElement = document.getElementById('current-time');
+            if (currentTimeElement) {
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                currentTimeElement.textContent = `${hours}:${minutes}`;
+            }
+        }
+
+        // Login function
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Check credentials
+            if (username === 'Eric' && password === 'ricky157853') {
+                // Save login state
+                localStorage.setItem('instashan_logged_in', 'true');
+                localStorage.setItem('instashan_username', username);
+                
+                // Redirect to main app
+                window.location.href = 'profile/profile.html';
+            } else {
+                errorMessage.textContent = 'Invalid username or password';
+                setTimeout(() => {
+                    errorMessage.textContent = '';
+                }, 3000);
+            }
+        }
+
+        // Show recovery section
+        function showRecovery() {
+            const recoverySection = document.getElementById('recoverySection');
+            recoverySection.style.display = 'block';
+        }
+
+        // Recover password
+        function recoverPassword() {
+            const answer = document.getElementById('recoveryAnswer').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (answer.toLowerCase() === 'ricky') {
+                errorMessage.textContent = 'Your password is: ricky157853';
+                errorMessage.style.color = '#4CAF50';
+            } else {
+                errorMessage.textContent = 'Incorrect answer. Try again.';
+                errorMessage.style.color = '#FF6B6B';
+            }
+            
+            setTimeout(() => {
+                errorMessage.textContent = '';
+                errorMessage.style.color = '#FF6B6B';
+            }, 5000);
+        }
+
+        // Check if already logged in
+        function checkLoginStatus() {
+            if (localStorage.getItem('instashan_logged_in') === 'true') {
+                window.location.href = 'profile/profile.html';
+            }
+        }
+
+        // Enter key support
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTime();
+            setInterval(updateTime, 60000);
+            checkLoginStatus();
+
+            const inputs = document.querySelectorAll('.input-field');
+            inputs.forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        login();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

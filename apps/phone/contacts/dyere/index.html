@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <title>Calling Dyere</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Phone</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <!-- Call Confirmation Screen -->
+            <div id="callConfirmation" class="call-screen">
+                <div class="call-header">
+                    <div class="call-avatar">👨‍🔧</div>
+                    <div class="call-name">Dyere</div>
+                    <div class="call-number">+1 (555) 234-5678</div>
+                    <div class="call-location">Available</div>
+                </div>
+
+                <div class="call-actions">
+                    <button class="call-button cancel" onclick="cancelCall()">
+                        <span class="button-icon">❌</span>
+                        Cancel
+                    </button>
+                    <button class="call-button confirm" onclick="startCall()">
+                        <span class="button-icon">📞</span>
+                        Call
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Call Screen -->
+            <div id="activeCall" class="call-screen" style="display: none;">
+                <div class="call-header">
+                    <div class="call-avatar">👨‍🔧</div>
+                    <div class="call-name">Dyere</div>
+                    <div class="call-status" id="callStatus">Calling...</div>
+                    <div class="call-timer" id="callTimer">00:00</div>
+                </div>
+
+                <div class="call-controls">
+                    <div class="control-row">
+                        <button class="control-button">
+                            <span class="control-icon">🎛️</span>
+                            <span class="control-label">Keypad</span>
+                        </button>
+                        <button class="control-button" id="muteButton" onclick="toggleMute()">
+                            <span class="control-icon">🔇</span>
+                            <span class="control-label">Mute</span>
+                        </button>
+                    </div>
+                    <div class="control-row">
+                        <button class="control-button" id="speakerButton" onclick="toggleSpeaker()">
+                            <span class="control-icon">🔊</span>
+                            <span class="control-label">Speaker</span>
+                        </button>
+                        <button class="control-button">
+                            <span class="control-icon">⋯</span>
+                            <span class="control-label">More</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="call-end-container">
+                    <button class="end-call-button" onclick="endCall()">
+                        <span class="end-call-icon">📞</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="ringtone" loop>
+        <source src="ring.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="voiceAudio">
+        <source src="voice.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

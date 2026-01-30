@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1a1a1a">
+    <title>Browser</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Browser</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="app-page dark-mode">
+                <div class="app-header dark">
+                    <button class="back-button" onclick="closeAppAndReturnHome()">←</button>
+                    <div class="app-title">Browser</div>
+                    <button class="app-button" onclick="openAppNavigation()">📱</button>
+                </div>
+
+                <div class="browser-container">
+                    <!-- Navigation Bar -->
+                    <div class="browser-navbar">
+                        <div class="nav-controls">
+                            <!-- Only Home button remains -->
+                            <button class="nav-button" id="homeButton" onclick="goHome()">⌂</button>
+                        </div>
+                        
+                        <div class="url-bar">
+                            <span>🔍</span>
+                            <input type="text" id="urlInput" placeholder="Enter website...">
+                        </div>
+
+                        <button class="refresh-button" onclick="refreshPage()">↻</button>
+                    </div>
+
+                    <!-- Browser Content -->
+                    <div class="browser-content" id="browserContent">
+                        <!-- Home Page -->
+                        <div class="home-page" id="homePage">
+                            <div class="section-title">Recently visited</div>
+                            <div class="recently-visited">
+                                <div class="no-history" id="noHistoryMessage">
+                                    No recent visits
+                                </div>
+                                <div id="recentItems" style="display: none;">
+                                    <!-- Recent items will be added here by JavaScript -->
+                                </div>
+                            </div>
+
+                            <div class="section-title">SUGGESTED</div>
+                            <div class="suggested-section">
+                                <div class="suggested-grid">
+                                    <div class="suggested-item" onclick="navigateTo('avery-map.com')">
+                                        <img src="https://image.jimcdn.com/app/cms/image/transf/none/path/s5b7af0618d302082/image/ie4578239dad12bfe/version/1763192908/image.jpg" 
+                                             alt="Avery Map" 
+                                             class="suggested-image"
+                                             onerror="this.style.display='none';">
+                                        <div class="suggested-title">Avery Map</div>
+                                    </div>
+                                    <div class="suggested-item" onclick="navigateTo('kaveri-river.com')">
+                                        <img src="https://thumbs.dreamstime.com/b/vibrant-digital-painting-depicts-serene-forest-river-flowing-lush-woodland-landscape-sunny-day-clear-blue-386116319.jpg" 
+                                             alt="Kaveri River" 
+                                             class="suggested-image"
+                                             onerror="this.style.display='none';">
+                                        <div class="suggested-title">Kaveri River</div>
+                                    </div>
+                                    <div class="suggested-item" onclick="navigateTo('hospital.com')">
+                                        <img src="https://static.vecteezy.com/system/resources/thumbnails/009/350/681/small/building-place-hospital-png.png" 
+                                             alt="Hospital" 
+                                             class="suggested-image"
+                                             onerror="this.style.display='none';">
+                                        <div class="suggested-title">Hospital Info</div>
+                                    </div>
+                                    <div class="suggested-item" onclick="navigateTo('himalaya.com')">
+                                        <img src="https://www.shutterstock.com/image-vector/breathtaking-animated-mountain-landscape-inspire-600nw-2614074607.jpg" 
+                                             alt="Himalaya" 
+                                             class="suggested-image"
+                                             onerror="this.style.display='none';">
+                                        <div class="suggested-title">Himalaya</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Search Results -->
+                        <div class="search-results" id="searchResults" style="display: none;">
+                            <!-- Results will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Website Content -->
+                        <div class="website-content" id="websiteContent" style="display: none;">
+                            <!-- Dynamic website content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- App Navigation Overlay -->
+        <div id="appNavigation">
+            <div class="nav-header">
+                <div class="nav-title">Apps</div>
+                <button class="close-nav" onclick="closeAppNavigation()">✕</button>
+            </div>
+            <div class="app-grid" id="appGrid">
+                <!-- App icons will be inserted here by JavaScript -->
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

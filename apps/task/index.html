@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1a1a1a">
+    <title>Task Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Task Manager</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="app-page">
+                <div class="app-header dark">
+                    <button class="back-button" onclick="closeAppAndReturnHome()">←</button>
+                    <div class="app-title">Task Manager</div>
+                    <div style="width: 40px;"></div>
+                </div>
+
+                <div class="app-content">
+                    <!-- Task Header -->
+                    <div class="task-header">
+                        <div class="task-logo">Task Manager</div>
+                    </div>
+
+                    <!-- Tasks Section -->
+                    <div class="tasks-section">
+                        <div class="tasks-container">
+                            <div class="task-list" id="taskList">
+                                <!-- Tasks will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hint Display -->
+                    <div id="hintBox" class="hint-box">
+                        <div class="hint-content">
+                            <strong>Hint:</strong> Go to Messages app and start a chat with Mr. Ray to complete this task.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ad Overlay -->
+        <div id="adOverlay" class="ad-overlay">
+            <div class="ad-container">
+                <div id="adText" class="ad-text"></div>
+                <img id="adImage" alt="Advertisement" class="ad-image">
+                <div id="adTimer" class="ad-timer">Ad ends in 3s</div>
+                <button class="see-hint-button" onclick="showHint()" style="display: none;" id="seeHintBtn">See Hint</button>
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+<!-- Task Details Overlay -->
+<div id="taskDetailsOverlay" class="task-details-overlay">
+    <div class="task-details-container">
+        <div class="task-details-title" id="taskDetailsTitle">Task Details</div>
+        <div class="task-details-description" id="taskDetailsDescription"></div>
+        <div class="task-details-hint" id="taskDetailsHintSection" style="display: none;">
+            <div class="task-details-hint-title">Hint:</div>
+            <div class="task-details-hint-text" id="taskDetailsHint"></div>
+        </div>
+        <button class="task-details-close" onclick="closeTaskDetails()">Close</button>
+    </div>
+</div>
+    <script src="https://projectsofkhan.github.io/Trail/apps/task/taskprogress.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,400 @@
+/* Mobile Phone Theme - Black Theme */
+:root {
+    --phone-width: 340px;
+    --phone-height: 680px;
+    --border-radius: 30px;
+    --frame-color: #000000;
+    --status-bar-height: 35px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent !important;
+    tap-highlight-color: transparent !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+}
+
+/* Remove focus outline for all buttons */
+button {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #111111;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+/* Phone Frame - Black */
+.phone-container {
+    width: var(--phone-width);
+    height: var(--phone-height);
+    background-color: var(--frame-color);
+    border-radius: var(--border-radius);
+    padding: 8px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #333;
+}
+
+.notch {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 130px;
+    height: 25px;
+    background-color: var(--frame-color);
+    border-radius: 0 0 15px 15px;
+    z-index: 10;
+    border-bottom: 1px solid #333;
+}
+
+/* Screen Area - Pure Black */
+.screen {
+    width: 100%;
+    height: calc(100% - 16px);
+    background-color: #000000;
+    border-radius: calc(var(--border-radius) - 8px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Status Bar - Dark */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 0 15px;
+    height: var(--status-bar-height);
+    background-color: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+    border-bottom: 1px solid #333;
+}
+
+.status-bar .left-icons, .status-bar .right-icons { 
+    display: flex; 
+    align-items: center; 
+}
+
+.status-bar span { 
+    margin-right: 8px; 
+}
+
+.status-bar .center-text { 
+    font-size: 12px; 
+    font-weight: 500; 
+}
+
+/* App Page - Black */
+.app-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #000000;
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: #000000;
+    border-bottom: 1px solid #333;
+    flex-shrink: 0;
+}
+
+.app-header.dark {
+    background: #000000;
+    color: white;
+}
+
+/* Enhanced Back Button - No White Highlight */
+.back-button {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.back-button:active {
+    background: #1a1a1a;
+}
+
+.app-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+}
+
+/* App Content - Black */
+.app-content {
+    flex: 1;
+    padding: 0;
+    background: #000000;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Phone Header */
+.phone-header {
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    padding: 30px 20px 25px 20px;
+    text-align: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom: 1px solid #333;
+}
+
+.phone-logo {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.phone-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* Contacts Section */
+.contacts-section {
+    padding: 20px;
+    flex: 1;
+}
+
+.contacts-container {
+    background: #1a1a1a;
+    border-radius: 15px;
+    border: 1px solid #333;
+    overflow: hidden;
+}
+
+.contacts-list {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contact Items */
+.contact-item {
+    display: flex;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #1a1a1a;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.contact-item:active {
+    background: #2d2d2d;
+}
+
+.contact-item.locked {
+    opacity: 0.7;
+}
+
+.contact-avatar {
+    font-size: 24px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2d2d2d;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.contact-number {
+    font-size: 14px;
+    color: #888;
+    font-weight: 400;
+}
+
+.contact-lock {
+    font-size: 18px;
+    color: #FF6B6B;
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
+/* Contacts Warning */
+.contacts-warning {
+    padding: 20px;
+    text-align: center;
+    color: #FFA726;
+    font-size: 13px;
+    font-weight: 500;
+    background: #1a1a1a;
+    border-top: 1px solid #333;
+}
+
+/* Password Overlay */
+.password-overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 100;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.password-container {
+    background: #1a1a1a;
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+    max-width: 300px;
+    border: 1px solid #333;
+    text-align: center;
+}
+
+.password-header {
+    margin-bottom: 25px;
+}
+
+.password-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.password-subtitle {
+    font-size: 14px;
+    color: #888;
+    font-weight: 400;
+}
+
+.password-input-container {
+    margin-bottom: 25px;
+}
+
+.password-input {
+    width: 100%;
+    background: #2d2d2d;
+    border: 2px solid #444;
+    border-radius: 12px;
+    padding: 15px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 8px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.password-input:focus {
+    outline: none;
+    border-color: #4A90E2;
+}
+
+.password-hint {
+    font-size: 12px;
+    color: #666;
+    margin-top: 8px;
+}
+
+.password-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.password-button {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.password-button.cancel {
+    background: #2d2d2d;
+    color: white;
+    border: 1px solid #444;
+}
+
+.password-button.cancel:active {
+    background: #3d3d3d;
+}
+
+.password-button.submit {
+    background: #4A90E2;
+    color: white;
+}
+
+.password-button.submit:active {
+    background: #357ABD;
+    transform: scale(0.98);
+}
+
+/* Home Bar */
+.home-bar {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    z-index: 10;
+}

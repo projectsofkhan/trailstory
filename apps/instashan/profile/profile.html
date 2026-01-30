@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <title>Instashan - Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+            -webkit-touch-callout: none !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: #333333;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Mobile Phone Frame */
+        .phone-container {
+            width: 340px;
+            height: 680px;
+            background-color: #1a1a1a;
+            border-radius: 30px;
+            padding: 8px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notch {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 25px;
+            background-color: #1a1a1a;
+            border-radius: 0 0 15px 15px;
+            z-index: 10;
+        }
+
+        .screen {
+            width: 100%;
+            height: calc(100% - 16px);
+            background-color: #000;
+            border-radius: 22px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 0 15px;
+            height: 35px;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 3;
+        }
+
+        .status-bar .left-icons, .status-bar .right-icons { 
+            display: flex; 
+            align-items: center; 
+        }
+
+        .status-bar span { 
+            margin-right: 8px; 
+        }
+
+        .status-bar .center-text { 
+            font-size: 12px; 
+            font-weight: 500; 
+        }
+
+        /* App Structure */
+        .app-page {
+            flex: 1;
+            background: #000000 !important;
+            display: flex;
+            flex-direction: column;
+            margin-top: 35px;
+            height: calc(100% - 35px);
+        }
+
+        /* Header */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #1a1a1a !important;
+            color: white;
+            height: 50px;
+            flex-shrink: 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .app-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .header-spacer {
+            width: 40px;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid #E1306C;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-stats {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .profile-bio {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .stat-label {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Posts Grid */
+        .posts-section {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        .post-item {
+            aspect-ratio: 1;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-item:active {
+            opacity: 0.7;
+            transform: scale(0.95);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-number {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Post Modal */
+        .post-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 100;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+
+        .modal-image {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .like-button {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .like-button.liked {
+            color: #E1306C;
+        }
+
+        .like-button:active {
+            transform: scale(0.9);
+        }
+
+        .modal-bio {
+            color: white;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .modal-comments {
+            color: #ccc;
+            font-size: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .close-modal {
+            background: #E1306C;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 20px;
+            background: #1a1a1a;
+            border-top: 1px solid #333;
+        }
+
+        .nav-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-button.active {
+            color: #E1306C;
+        }
+
+        .nav-button:active {
+            background: rgba(225, 48, 108, 0.1);
+            transform: scale(0.9);
+        }
+
+        .profile-nav-button {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid #E1306C;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .profile-nav-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Home Bar */
+        .home-bar {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Instashan</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="app-page">
+                <div class="profile-section">
+                    <div class="profile-info">
+                        <div class="profile-avatar">
+                            <img src="https://projectsofkhan.github.io/pythontodoapp/profileimage.jpg" class="profile-image" alt="Eric">
+                        </div>
+                        <div class="profile-stats">
+                            <div class="profile-name">Eric</div>
+                            <div class="profile-bio">Eric Petrove - Tech enthusiast and car lover. </div>
+                            <div class="stats">
+                                <div class="stat">
+                                    <div class="stat-number">11</div>
+                                    <div class="stat-label">Posts</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-number">347</div>
+                                    <div class="stat-label">Followers</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-number">189</div>
+                                    <div class="stat-label">Following</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="posts-section">
+                    <div class="posts-grid" id="postsGrid">
+                        <!-- Posts will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="bottom-nav">
+                    <button class="nav-button active profile-nav-button">
+                        <img src="https://projectsofkhan.github.io/pythontodoapp/profileimage.jpg" class="profile-nav-image" alt="Profile">
+                    </button>
+                    <button class="nav-button" onclick="openReels()">🎥</button>
+                    <button class="nav-button" onclick="openChats()">💬</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post Modal -->
+        <div id="postModal" class="post-modal">
+            <div class="modal-content">
+                <img id="modalImage" class="modal-image" alt="Post">
+                <div class="modal-actions">
+                    <button class="like-button" id="likeButton" onclick="toggleLike()">❤️</button>
+                </div>
+                <div class="modal-bio" id="modalBio"></div>
+                <div class="modal-comments" id="modalComments"></div>
+                <button class="close-modal" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+
+    <script>
+        // Updated image URLs (only 11 posts)
+        const profileImage = 'https://projectsofkhan.github.io/pythontodoapp/profileimage.jpg';
+        const postImages = [
+            'https://projectsofkhan.github.io/pythontodoapp/image1.jpg',
+            'https://projectsofkhan.github.io/pythontodoapp/image2.jpg',
+            'https://projectsofkhan.github.io/pythontodoapp/image3.jpg',
+            'https://projectsofkhan.github.io/pythontodoapp/image4.jpg',
+            'https://projectsofkhan.github.io/pythontodoapp/image5.jpg',
+            'https://projectsofkhan.github.io/pythontodoapp/image6.jpg',
+            'https://projectsofkhan.github.io/pythontodoapp/image7.jpg',
+            'https://projectsofkhan.github.io/pythontodoapp/image8.jpg',
+            'https://projectsofkhan.github.io/pythontodoapp/image9.jpg',
+            'https://projectsofkhan.github.io/pythontodoapp/image10.jpg',
+            'https://projectsofkhan.github.io/pythontodoapp/image11.jpg'
+        ];
+
+        // Post bios and comments (updated with Indian/Urdu mix names in English)
+                const postBios = [
+            "Its Awesome Ahmet!",
+            "hey Sahil aren't you too small 😂😂",
+            "Chemistry Is worse Subject",
+            "Awesome 😘😘",
+            "Going to Mountain",
+            "🏖️",
+            "let's see who will win!",
+            "Billie Volleyball Club 🏆",
+            "I Love You The Most 💕",
+            "The Indian Good is best!",
+            `I Chased By Shadow All The day, Until the light was taken away.
+Then in the dark I came to see, My Shadow was Just Part Of Me!`
+        ];
+
+        const comments = [
+            ["Sahil: Superb Turn.", "Diya: Nice Eric", "Priya: So beautiful! ❤️"],
+            ["Sahil: Hey I am 4.9", "Rohan: Looks fantastic!", "Diya: Cool Guyz 😎"],
+            ["Sahil: Oh!", "Sister: 🤣🤣", "Dad: Sleep before 11'o clock!!!"],
+            ["Vikram: Its Killing me", "BMW✔️: Nice Pic!", "Rahul: Whaaaaat! BMW official?"],
+            ["Sahil: Enjoy", "Priya: Don't Forget To Come Home 🏡"],
+            ["misterray: Nice-Pic", "Aarav: Enjoy The Vacations", "Rohan: Successfully you do!"],
+            ["Sister: Who wins?", "Sahil: Eric", "Sister: love You Eric 💕! "],
+            ["Diya: You Do it"],
+            ["Sister:Hey why you posted it?", "Eric: Don't worry it's in Close Freind!", "Sister: Delete it now bro", "Eric: 😂"],
+            ["Priya: 😋", "misterray: Delicious"],
+            ["Rohan: Beautiful shot!", "Sahil: Love the mood"]
+        ];
+
+        let currentPostIndex = 0;
+        let likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '{}');
+
+        // Update time
+        function updateTime() {
+            const currentTimeElement = document.getElementById('current-time');
+            if (currentTimeElement) {
+                const now = new Date();
+                const hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                currentTimeElement.textContent = `${hours}:${minutes}`;
+            }
+        }
+
+        // Load posts
+        function loadPosts() {
+            const postsGrid = document.getElementById('postsGrid');
+            if (!postsGrid) return;
+
+            postsGrid.innerHTML = '';
+
+            for (let i = 0; i < postImages.length; i++) {
+                const postItem = document.createElement('div');
+                postItem.className = 'post-item';
+                postItem.onclick = () => openPost(i);
+
+                if (postImages[i]) {
+                    postItem.innerHTML = `<img src="${postImages[i]}" class="post-image" alt="Post ${i + 1}">`;
+                } else {
+                    postItem.innerHTML = `<div class="post-number">${i + 1}</div>`;
+                }
+
+                postsGrid.appendChild(postItem);
+            }
+        }
+
+        // Open post modal
+        function openPost(index) {
+            if (index >= postImages.length) return;
+            
+            currentPostIndex = index;
+            const modal = document.getElementById('postModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalBio = document.getElementById('modalBio');
+            const modalComments = document.getElementById('modalComments');
+            const likeButton = document.getElementById('likeButton');
+
+            if (postImages[index]) {
+                modalImage.src = postImages[index];
+            }
+
+            modalBio.textContent = postBios[index];
+            modalComments.innerHTML = comments[index] ? comments[index].join('<br>') : '';
+
+            // Set like button state
+            if (likedPosts[index]) {
+                likeButton.classList.add('liked');
+            } else {
+                likeButton.classList.remove('liked');
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('postModal');
+            modal.style.display = 'none';
+        }
+
+        // Toggle like
+        function toggleLike() {
+            const likeButton = document.getElementById('likeButton');
+            likedPosts[currentPostIndex] = !likedPosts[currentPostIndex];
+
+            if (likedPosts[currentPostIndex]) {
+                likeButton.classList.add('liked');
+            } else {
+                likeButton.classList.remove('liked');
+            }
+
+            localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
+        }
+
+        // Open chats
+        function openChats() {
+            window.location.href = '../chats/chats.html';
+        }
+
+        // Open reels
+        function openReels() {
+            window.location.href = 'https://projectsofkhan.github.io/123/reels.html';
+        }
+
+        // Check login status
+        function checkLoginStatus() {
+            if (localStorage.getItem('instashan_logged_in') !== 'true') {
+                window.location.href = '../index.html';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTime();
+            setInterval(updateTime, 60000);
+            checkLoginStatus();
+            loadPosts();
+        });
+// ================= TASK 6 COMPLETION VERIFICATION =================
+function checkAndCompleteTask6() {
+    console.log('🔍 Checking Task 6 completion...');
+    
+    // Check if user is logged in
+    if (localStorage.getItem('instashan_logged_in') === 'true') {
+        // Check if already completed
+        const progress = JSON.parse(localStorage.getItem('taskProgress') || '{}');
+        
+        if (!progress['task6_unlock_instashan']) {
+            console.log('✅ Task 6 completed! Unlocking Instashan ID...');
+            
+            // Mark task as completed
+            progress['task6_unlock_instashan'] = true;
+            localStorage.setItem('taskProgress', JSON.stringify(progress));
+            
+            // Trigger update in main app
+            localStorage.setItem('taskProgressUpdate', Date.now());
+            
+            // Send message to parent window if opened from task manager
+            if (window.opener && !window.opener.closed) {
+                try {
+                    window.opener.postMessage({
+                        type: 'TASK_COMPLETED',
+                        taskId: 'task6_unlock_instashan'
+                    }, '*');
+                    console.log('📤 Sent completion message to parent');
+                } catch (e) {
+                    console.log('⚠️ Could not notify parent window');
+                }
+            }
+            
+            // Show success notification
+            showTask6Success();
+        } else {
+            console.log('ℹ️ Task 6 already completed');
+        }
+    }
+}
+
+function showTask6Success() {
+    const successMsg = document.createElement('div');
+    successMsg.style.cssText = `
+        position: fixed;
+        top: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #E1306C, #C13584);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 15px;
+        font-weight: 600;
+        z-index: 9999;
+        animation: slideIn 0.5s ease;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        text-align: center;
+        min-width: 280px;
+        max-width: 90%;
+        border: 2px solid rgba(255,255,255,0.2);
+    `;
+    
+    successMsg.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 8px;">
+            <span style="font-size: 1.5rem;">✅</span>
+            <span style="font-size: 1.2rem; font-weight: 700;">Instashan ID Unlocked!</span>
+        </div>
+        <div style="font-size: 0.9rem; opacity: 0.9;">
+            Task 6 completed successfully
+        </div>
+        <div style="font-size: 0.8rem; margin-top: 5px; background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 8px;">
+            🔓 Eric's social media evidence now accessible
+        </div>
+        
+        <style>
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateX(-50%) translateY(-30px); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            }
+        </style>
+    `;
+    
+    document.body.appendChild(successMsg);
+    
+    // Play success sound
+    const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3');
+    sound.volume = 0.3;
+    sound.play().catch(e => console.log('Sound error:', e));
+    
+    // Remove after 5 seconds
+    setTimeout(() => {
+        successMsg.style.opacity = '0';
+        successMsg.style.transform = 'translateX(-50%) translateY(-20px)';
+        setTimeout(() => successMsg.remove(), 500);
+    }, 5000);
+}
+
+// Call the function when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait a bit for everything to load
+    setTimeout(checkAndCompleteTask6, 1500);
+});
+
+// Also check on user interaction
+document.addEventListener('click', function() {
+    checkAndCompleteTask6();
+});
+    </script>
+</body>
+</html>

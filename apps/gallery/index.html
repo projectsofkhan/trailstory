@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1a1a1a">
+    <title>Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Mobile Phone Theme */
+:root {
+    --phone-width: 340px;
+    --phone-height: 680px;
+    --border-radius: 30px;
+    --frame-color: #1a1a1a;
+    --status-bar-height: 35px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent !important;
+    tap-highlight-color: transparent !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+}
+
+/* Remove focus outline for all buttons */
+button {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #333333;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+/* Phone Frame */
+.phone-container {
+    width: var(--phone-width);
+    height: var(--phone-height);
+    background-color: var(--frame-color);
+    border-radius: var(--border-radius);
+    padding: 8px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    position: relative;
+    overflow: hidden;
+}
+
+.notch {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 130px;
+    height: 25px;
+    background-color: var(--frame-color);
+    border-radius: 0 0 15px 15px;
+    z-index: 10;
+}
+
+/* Screen Area */
+.screen {
+    width: 100%;
+    height: calc(100% - 16px);
+    background-color: #000;
+    border-radius: calc(var(--border-radius) - 8px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Status Bar */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 0 15px;
+    height: var(--status-bar-height);
+    background-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+}
+
+.status-bar .left-icons, .status-bar .right-icons { 
+    display: flex; 
+    align-items: center; 
+}
+
+.status-bar span { 
+    margin-right: 8px; 
+}
+
+.status-bar .center-text { 
+    font-size: 12px; 
+    font-weight: 500; 
+}
+
+/* App Page */
+.app-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #000;
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+    flex-shrink: 0;
+}
+
+.app-header.dark {
+    background: #1a1a1a;
+    color: white;
+}
+
+/* Enhanced Back Button - No White Highlight */
+.back-button {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.back-button:active {
+    background: #2d2d2d;
+}
+
+.app-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+}
+
+/* Gallery Content */
+.app-content {
+    flex: 1;
+    padding: 0;
+    background: #000;
+    overflow-y: auto;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 2px;
+}
+
+.gallery-item {
+    aspect-ratio: 1;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #333;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.gallery-item:active {
+    background: #2d2d2d;
+    transform: scale(0.95);
+}
+
+.image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.video-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+/* Image Viewer Overlay */
+.image-viewer {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 100;
+    flex-direction: column;
+}
+
+.viewer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.9);
+    border-bottom: 1px solid #333;
+    flex-shrink: 0;
+}
+
+.viewer-back-button {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    border: none;
+    background: none;
+}
+
+.viewer-back-button:active {
+    background: #2d2d2d;
+}
+
+.viewer-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+}
+
+.viewer-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-button {
+    background: none;
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.action-button:active {
+    background: #2d2d2d;
+}
+
+.viewer-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.media-container {
+    max-width: 90%;
+    max-height: 70%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background: #000;
+}
+
+.full-media {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 15px;
+    transition: filter 0.3s ease;
+}
+
+.video-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px 20px;
+    border-radius: 25px;
+    backdrop-filter: blur(10px);
+}
+
+.control-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Edit Panel */
+.edit-panel {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 20px;
+    border-top: 1px solid #333;
+    z-index: 101;
+}
+
+.filter-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.filter-slider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+}
+
+.filter-label {
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 80px;
+}
+
+.slider {
+    flex: 1;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #007AFF;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.save-button {
+    background: #007AFF;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.cancel-button {
+    background: #ff3b30;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Home Bar */
+.home-bar {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 2px;
+    z-index: 10;
+}
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Gallery</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="app-page">
+                <div class="app-header dark">
+                    <button class="back-button" onclick="closeAppAndReturnHome()">←</button>
+                    <div class="app-title">Gallery</div>
+                    <div style="width: 40px;"></div>
+                </div>
+
+                <div class="app-content">
+                    <div class="gallery-grid">
+                        <!-- Image 1-8 with previews from external repository -->
+                        <div class="gallery-item" onclick="openMedia('https://projectsofkhan.github.io/pythontodoapp/image1.jpg', 'image')">
+                            <img src="https://projectsofkhan.github.io/pythontodoapp/image1.jpg" class="image-preview" alt="Image 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder" style="display: none; position: absolute; width: 100%; height: 100%; align-items: center; justify-content: center; color: #666; font-size: 14px; font-weight: 500;">Image 1</div>
+                        </div>
+                        <div class="gallery-item" onclick="openMedia('https://projectsofkhan.github.io/pythontodoapp/image2.jpg', 'image')">
+                            <img src="https://projectsofkhan.github.io/pythontodoapp/image2.jpg" class="image-preview" alt="Image 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder" style="display: none; position: absolute; width: 100%; height: 100%; align-items: center; justify-content: center; color: #666; font-size: 14px; font-weight: 500;">Image 2</div>
+                        </div>
+                        <div class="gallery-item" onclick="openMedia('https://projectsofkhan.github.io/pythontodoapp/image3.jpg', 'image')">
+                            <img src="https://projectsofkhan.github.io/pythontodoapp/image3.jpg" class="image-preview" alt="Image 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder" style="display: none; position: absolute; width: 100%; height: 100%; align-items: center; justify-content: center; color: #666; font-size: 14px; font-weight: 500;">Image 3</div>
+                        </div>
+                        <div class="gallery-item" onclick="openMedia('https://projectsofkhan.github.io/pythontodoapp/image4.jpg', 'image')">
+                            <img src="https://projectsofkhan.github.io/pythontodoapp/image4.jpg" class="image-preview" alt="Image 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder" style="display: none; position: absolute; width: 100%; height: 100%; align-items: center; justify-content: center; color: #666; font-size: 14px; font-weight: 500;">Image 4</div>
+                        </div>
+                        <div class="gallery-item" onclick="openMedia('https://projectsofkhan.github.io/pythontodoapp/image5.jpg', 'image')">
+                            <img src="https://projectsofkhan.github.io/pythontodoapp/image5.jpg" class="image-preview" alt="Image 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder" style="display: none; position: absolute; width: 100%; height: 100%; align-items: center; justify-content: center; color: #666; font-size: 14px; font-weight: 500;">Image 5</div>
+                        </div>
+                        <div class="gallery-item" onclick="openMedia('https://projectsofkhan.github.io/pythontodoapp/image6.jpg', 'image')">
+                            <img src="https://projectsofkhan.github.io/pythontodoapp/image6.jpg" class="image-preview" alt="Image 6" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder" style="display: none; position: absolute; width: 100%; height: 100%; align-items: center; justify-content: center; color: #666; font-size: 14px; font-weight: 500;">Image 6</div>
+                        </div>
+                        <div class="gallery-item" onclick="openMedia('https://projectsofkhan.github.io/pythontodoapp/image7.jpg', 'image')">
+                            <img src="https://projectsofkhan.github.io/pythontodoapp/image7.jpg" class="image-preview" alt="Image 7" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder" style="display: none; position: absolute; width: 100%; height: 100%; align-items: center; justify-content: center; color: #666; font-size: 14px; font-weight: 500;">Image 7</div>
+                        </div>
+                        <div class="gallery-item" onclick="openMedia('https://projectsofkhan.github.io/pythontodoapp/image8.jpg', 'image')">
+                            <img src="https://projectsofkhan.github.io/pythontodoapp/image8.jpg" class="image-preview" alt="Image 8" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="image-placeholder" style="display: none; position: absolute; width: 100%; height: 100%; align-items: center; justify-content: center; color: #666; font-size: 14px; font-weight: 500;">Image 8</div>
+                        </div>
+                        <!-- Video with preview from external repository -->
+                        <div class="gallery-item" onclick="openMedia('https://projectsofkhan.github.io/pythontodoapp/video.mp4', 'video')">
+                            <video class="video-preview" muted loop onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <source src="https://projectsofkhan.github.io/pythontodoapp/video.mp4" type="video/mp4">
+                            </video>
+                            <div class="image-placeholder" style="display: none; position: absolute; width: 100%; height: 100%; align-items: center; justify-content: center; color: #666; font-size: 14px; font-weight: 500;">Video</div>
+                            <div class="play-icon">▶</div>
+                            <div class="video-indicator">VIDEO</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Media Viewer Overlay -->
+        <div id="mediaViewer" class="image-viewer">
+            <div class="viewer-header">
+                <div class="viewer-back-button" onclick="closeMedia()">←</div>
+                <div class="viewer-title" id="viewerTitle">Media</div>
+                <div class="viewer-actions">
+                    <button class="action-button" onclick="toggleEdit()">✏️</button>
+                    <button class="action-button" onclick="shareMedia()">↗️</button>
+                </div>
+            </div>
+            <div class="viewer-content">
+                <div class="media-container">
+                    <img id="fullSizeImage" class="full-media" src="" alt="Full size image" style="display: none;">
+                    <video id="fullSizeVideo" class="full-media" controls style="display: none;">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <!-- Video Controls -->
+            <div id="videoControls" class="video-controls" style="display: none;">
+                <button class="control-button" onclick="togglePlay()">⏯️</button>
+                <button class="control-button" onclick="skipBack()">⏪</button>
+                <button class="control-button" onclick="skipForward()">⏩</button>
+                <button class="control-button" onclick="toggleMute()">🔊</button>
+            </div>
+        </div>
+
+        <!-- Edit Panel -->
+        <div id="editPanel" class="edit-panel">
+            <div class="filter-controls">
+                <div class="filter-slider">
+                    <span class="filter-label">Brightness</span>
+                    <input type="range" class="slider" id="brightnessSlider" min="0" max="200" value="100" oninput="updateFilter('brightness', this.value)">
+                </div>
+                <div class="filter-slider">
+                    <span class="filter-label">Blur</span>
+                    <input type="range" class="slider" id="blurSlider" min="0" max="10" value="0" oninput="updateFilter('blur', this.value)">
+                </div>
+            </div>
+            <div class="edit-actions">
+                <button class="cancel-button" onclick="cancelEdit()">Cancel</button>
+                <button class="save-button" onclick="saveEdit()">Save</button>
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+
+    <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          let currentMediaType = '';
+let currentVideo = null;
+let currentMediaSrc = ''; // 🆕 Store current media source
+let originalFilters = {
+    brightness: '100',
+    blur: '0'
+};
+
+/**
+ * Fixed Back Button - Handles both media navigation and app close
+ */
+function initializeBackButton() {
+    const backButton = document.querySelector('.back-button');
+    
+    if (backButton) {
+        backButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            playClickSound();
+            
+            // If media viewer is open, close it first
+            const mediaViewer = document.getElementById('mediaViewer');
+            if (mediaViewer && mediaViewer.style.display === 'flex') {
+                closeMedia();
+            } else {
+                // Otherwise close the app
+                closeAppAndReturnHome();
+            }
+        });
+    }
+
+    // Support Android back button
+    window.addEventListener('popstate', function(event) {
+        const mediaViewer = document.getElementById('mediaViewer');
+        if (mediaViewer && mediaViewer.style.display === 'flex') {
+            closeMedia();
+        } else {
+            closeAppAndReturnHome();
+        }
+    });
+
+    // Support Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const mediaViewer = document.getElementById('mediaViewer');
+            if (mediaViewer && mediaViewer.style.display === 'flex') {
+                closeMedia();
+            } else {
+                closeAppAndReturnHome();
+            }
+        }
+    });
+}
+
+/**
+ * Close app tab and focus home screen
+ */
+function closeAppAndReturnHome() {
+    console.log('🔙 Closing Gallery and returning to home...');
+
+    // Try to focus the home tab first
+    if (window.opener && !window.opener.closed) {
+        try {
+            window.opener.focus();
+            console.log('✅ Home tab focused');
+        } catch (error) {
+            console.log('⚠️ Could not focus home tab');
+        }
+    }
+
+    // Close this app tab
+    setTimeout(() => {
+        window.close();
+    }, 50);
+}
+
+/**
+ * Fixed App Lifecycle Management
+ */
+function initializeAppLifecycle() {
+    window.addEventListener('beforeunload', function() {
+        console.log('🖼️ Gallery app closing');
+        // Clean up - don't redirect parent to avoid loops
+    });
+}
+
+/**
+ * Play click sound function
+ */
+function playClickSound() {
+    const sound = new Audio('https://projectsofkhan.github.io/Trail/sounds/click.mp3');
+    sound.volume = 0.3;
+    sound.play().catch(e => console.log('Sound error:', e));
+}
+
+/**
+ * Setup click sounds for gallery interactions
+ */
+function setupClickSounds() {
+    document.addEventListener('click', function(event) {
+        const target = event.target;
+        const isClickable = (
+            target.tagName === 'BUTTON' ||
+            target.tagName === 'A' ||
+            target.closest('.media-item') ||
+            target.closest('.control-button') ||
+            target.hasAttribute('onclick') ||
+            target.classList.contains('clickable') ||
+            (target.parentElement && target.parentElement.classList.contains('clickable'))
+        );
+
+        if (isClickable) {
+            playClickSound();
+        }
+    });
+}
+
+/**
+ * Updates the current time display
+ */
+function updateTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const timeElement = document.getElementById('current-time');
+    if (timeElement) {
+        timeElement.textContent = `${hours}:${minutes}`;
+    }
+}
+
+/**
+ * Opens media in full screen viewer
+ */
+function openMedia(mediaSrc, mediaType) {
+    const mediaViewer = document.getElementById('mediaViewer');
+    const fullSizeImage = document.getElementById('fullSizeImage');
+    const fullSizeVideo = document.getElementById('fullSizeVideo');
+    const videoControls = document.getElementById('videoControls');
+    const viewerTitle = document.getElementById('viewerTitle');
+
+    currentMediaType = mediaType;
+    currentMediaSrc = mediaSrc; // 🆕 Store the current media source
+
+    // Reset filters
+    resetFilters();
+
+    if (mediaType === 'image') {
+        fullSizeImage.src = mediaSrc;
+        fullSizeImage.style.display = 'block';
+        fullSizeVideo.style.display = 'none';
+        videoControls.style.display = 'none';
+        
+        // Extract image name for title
+        const imageName = mediaSrc.split('/').pop().replace('.jpg', '').replace('.png', '').replace('.jpeg', '');
+        viewerTitle.textContent = imageName.charAt(0).toUpperCase() + imageName.slice(1);
+        
+    } else if (mediaType === 'video') {
+        fullSizeVideo.src = mediaSrc;
+        fullSizeVideo.style.display = 'block';
+        fullSizeImage.style.display = 'none';
+        videoControls.style.display = 'flex';
+        viewerTitle.textContent = 'Video';
+        currentVideo = fullSizeVideo;
+    }
+
+    // Show the media viewer
+    mediaViewer.style.display = 'flex';
+    
+    // Play click sound
+    playClickSound();
+}
+
+/**
+ * Closes the media viewer
+ */
+function closeMedia() {
+    const mediaViewer = document.getElementById('mediaViewer');
+    const editPanel = document.getElementById('editPanel');
+    const fullSizeVideo = document.getElementById('fullSizeVideo');
+
+    mediaViewer.style.display = 'none';
+    editPanel.style.display = 'none';
+
+    if (currentVideo) {
+        currentVideo.pause();
+        currentVideo.currentTime = 0;
+        currentVideo = null;
+    }
+    
+    // Reset current media source
+    currentMediaSrc = '';
+    
+    // Play click sound
+    playClickSound();
+}
+
+/**
+ * Toggles edit panel
+ */
+function toggleEdit() {
+    const editPanel = document.getElementById('editPanel');
+    if (currentMediaType === 'image') {
+        editPanel.style.display = editPanel.style.display === 'block' ? 'none' : 'block';
+        playClickSound();
+    }
+}
+
+/**
+ * Video control functions
+ */
+function togglePlay() {
+    if (currentVideo) {
+        if (currentVideo.paused) {
+            currentVideo.play();
+        } else {
+            currentVideo.pause();
+        }
+        playClickSound();
+    }
+}
+
+function skipBack() {
+    if (currentVideo) {
+        currentVideo.currentTime -= 10;
+        playClickSound();
+    }
+}
+
+function skipForward() {
+    if (currentVideo) {
+        currentVideo.currentTime += 10;
+        playClickSound();
+    }
+}
+
+function toggleMute() {
+    if (currentVideo) {
+        currentVideo.muted = !currentVideo.muted;
+        playClickSound();
+    }
+}
+
+/**
+ * Filter functions
+ */
+function updateFilter(filter, value) {
+    const fullSizeImage = document.getElementById('fullSizeImage');
+    if (currentMediaType === 'image') {
+        let filterString = '';
+
+        if (filter === 'brightness') {
+            filterString = `brightness(${value}%)`;
+        } else if (filter === 'blur') {
+            filterString = `blur(${value}px)`;
+        }
+
+        fullSizeImage.style.filter = filterString;
+    }
+}
+
+function resetFilters() {
+    const fullSizeImage = document.getElementById('fullSizeImage');
+    const brightnessSlider = document.getElementById('brightnessSlider');
+    const blurSlider = document.getElementById('blurSlider');
+
+    fullSizeImage.style.filter = 'none';
+    if (brightnessSlider) brightnessSlider.value = '100';
+    if (blurSlider) blurSlider.value = '0';
+}
+
+function cancelEdit() {
+    const editPanel = document.getElementById('editPanel');
+    const fullSizeImage = document.getElementById('fullSizeImage');
+
+    // Reset to original filters
+    fullSizeImage.style.filter = 'none';
+    editPanel.style.display = 'none';
+    playClickSound();
+}
+
+function saveEdit() {
+    const editPanel = document.getElementById('editPanel');
+    editPanel.style.display = 'none';
+    playClickSound();
+    
+    // Show save confirmation
+    showNotification('Changes saved!');
+}
+
+/**
+ * 🆕 UPDATED: Share media function that shares the original image URL
+ */
+function shareMedia() {
+    playClickSound();
+    
+    if (!currentMediaSrc) {
+        showNotification('No media selected to share');
+        return;
+    }
+
+    // Get the original image URL
+    const imageUrl = currentMediaSrc;
+    const imageName = currentMediaSrc.split('/').pop();
+    
+    if (navigator.share) {
+        // Use Web Share API if available
+        navigator.share({
+            title: `Check out this image: ${imageName}`,
+            text: `I found this awesome image in the gallery app!`,
+            url: imageUrl
+        })
+        .then(() => console.log('Share successful'))
+        .catch(error => {
+            console.log('Error sharing:', error);
+            // Fallback to copy URL
+            copyUrlToClipboard(imageUrl);
+        });
+    } else {
+        // Fallback for browsers without Web Share API
+        copyUrlToClipboard(imageUrl);
+    }
+}
+
+/**
+ * 🆕 Copy URL to clipboard as fallback
+ */
+function copyUrlToClipboard(url) {
+    navigator.clipboard.writeText(url).then(() => {
+        showNotification('Image URL copied to clipboard! 📋');
+    }).catch(err => {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = url;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showNotification('Image URL copied to clipboard! 📋');
+    });
+}
+
+/**
+ * 🆕 Show notification function
+ */
+function showNotification(message) {
+    // Remove existing notification if any
+    const existingNotification = document.querySelector('.share-notification');
+    if (existingNotification) {
+        document.body.removeChild(existingNotification);
+    }
+
+    const notification = document.createElement('div');
+    notification.className = 'share-notification';
+    notification.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0,0,0,0.9);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 15px;
+        z-index: 10000;
+        font-size: 14px;
+        text-align: center;
+        border: 1px solid #333;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        backdrop-filter: blur(10px);
+    `;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (document.body.contains(notification)) {
+            document.body.removeChild(notification);
+        }
+    }, 3000);
+}
+
+/**
+ * Enhanced video preview functionality
+ */
+function initializeVideoPreviews() {
+    const videoPreviews = document.querySelectorAll('.video-preview');
+    videoPreviews.forEach(video => {
+        // Mouse events
+        video.addEventListener('mouseenter', function() {
+            this.play().catch(e => console.log('Video play error:', e));
+        });
+        
+        video.addEventListener('mouseleave', function() {
+            this.pause();
+            this.currentTime = 0;
+        });
+        
+        // Touch events for mobile
+        video.addEventListener('touchstart', function() {
+            this.play().catch(e => console.log('Video play error:', e));
+        });
+        
+        video.addEventListener('touchend', function() {
+            this.pause();
+            this.currentTime = 0;
+        });
+        
+        // Click to open in viewer
+        video.addEventListener('click', function(e) {
+            e.preventDefault();
+            const videoSrc = this.getAttribute('data-full-src') || this.src;
+            openMedia(videoSrc, 'video');
+        });
+    });
+}
+
+/**
+ * Initialize image click handlers
+ */
+function initializeImageHandlers() {
+    const imageItems = document.querySelectorAll('.media-item[data-type="image"]');
+    imageItems.forEach(image => {
+        image.addEventListener('click', function() {
+            const imageSrc = this.getAttribute('data-full-src') || this.querySelector('img').src;
+            openMedia(imageSrc, 'image');
+        });
+    });
+}
+
+// Initialize when page loads
+window.onload = function() {
+    // Set current time
+    updateTime();
+    setInterval(updateTime, 60000);
+    
+    // Initialize back button (fixed version)
+    initializeBackButton();
+    
+    // Initialize app lifecycle
+    initializeAppLifecycle();
+    
+    // Setup click sounds
+    setupClickSounds();
+    
+    // Initialize media handlers
+    initializeVideoPreviews();
+    initializeImageHandlers();
+
+    console.log('🖼️ Gallery App Ready - Share functionality updated!');
+    console.log('✅ Share button now shares original image URLs');
+    console.log('✅ Web Share API support with clipboard fallback');
+    console.log('✅ Better notifications and user feedback');
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

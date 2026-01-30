@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <title>Phone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="screen">
+            <div class="status-bar">
+                <div class="left-icons">
+                    <span>◇</span>
+                    <span id="current-time">1:37</span>
+                </div>
+                <div class="center-text">Phone</div>
+                <div class="right-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="app-page">
+                <div class="app-header dark">
+                    <button class="back-button" onclick="closeAppAndReturnHome()">←</button>
+                    <div class="app-title">Contacts</div>
+                    <div style="width: 40px;"></div>
+                </div>
+
+                <div class="app-content">
+                    <!-- Phone Header -->
+                    <div class="phone-header">
+                        <div class="phone-logo">📞</div>
+                        <div class="phone-subtitle">Your contacts</div>
+                    </div>
+
+                    <!-- Contacts List -->
+                    <div class="contacts-section">
+                        <div class="contacts-container">
+                            <div class="contacts-list">
+                                <!-- Unlocked Contacts -->
+                                <div class="contact-item" onclick="openContact('Mr. Ray')">
+                                    <div class="contact-avatar">👨‍💼</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Mr. Ray</div>
+                                        <div class="contact-number">+1 (555) 123-4567</div>
+                                    </div>
+                                </div>
+
+                                <div class="contact-item" onclick="openContact('Dyere')">
+                                    <div class="contact-avatar">👨‍🔧</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Dyere</div>
+                                        <div class="contact-number">+1 (555) 234-5678</div>
+                                    </div>
+                                </div>
+
+                                <div class="contact-item" onclick="openContact('Sahil')">
+                                    <div class="contact-avatar">👨‍🎓</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Sahil</div>
+                                        <div class="contact-number">+1 (555) 345-6789</div>
+                                    </div>
+                                </div>
+
+                                <!-- Locked Contacts -->
+                                <div class="contact-item locked" onclick="showPasswordPrompt('Mom')">
+                                    <div class="contact-avatar">👩</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Mom</div>
+                                        <div class="contact-number">+1 (555) 456-7890</div>
+                                    </div>
+                                    <div class="contact-lock">🔒</div>
+                                </div>
+
+                                <div class="contact-item locked" onclick="showPasswordPrompt('Sister')">
+                                    <div class="contact-avatar">👧</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Sister</div>
+                                        <div class="contact-number">+1 (555) 567-8901</div>
+                                    </div>
+                                    <div class="contact-lock">🔒</div>
+                                </div>
+
+                                <div class="contact-item locked" onclick="showPasswordPrompt('Feisher')">
+                                    <div class="contact-avatar">👨‍💻</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Feisher</div>
+                                        <div class="contact-number">+1 (555) 678-9012</div>
+                                    </div>
+                                    <div class="contact-lock">🔒</div>
+                                </div>
+
+                                <div class="contact-item locked" onclick="showPasswordPrompt('Dad')">
+                                    <div class="contact-avatar">👨</div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Dad</div>
+                                        <div class="contact-number">+1 (555) 890-1234</div>
+                                    </div>
+                                    <div class="contact-lock">🔒</div>
+                                </div>
+                            </div>
+
+                            <!-- Warning Message -->
+                            <div class="contacts-warning">
+                                ⚠️ Some contacts cannot be restored
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Password Overlay -->
+        <div id="passwordOverlay" class="password-overlay">
+            <div class="password-container">
+                <div class="password-header">
+                    <div class="password-title">Enter Password</div>
+                    <div class="password-subtitle" id="passwordContactName">to access this contact</div>
+                </div>
+
+                <div class="password-input-container">
+                    <input type="password" id="passwordInput" class="password-input" placeholder="Enter password" maxlength="4">
+                    <div class="password-hint">4-digit PIN</div>
+                </div>
+
+                <div class="password-actions">
+                    <button class="password-button cancel" onclick="closePasswordPrompt()">Cancel</button>
+                    <button class="password-button submit" onclick="checkPassword()">Unlock</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-bar"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
