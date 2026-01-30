@@ -1,4 +1,4 @@
-// ✅ CHECK IF TASK 6 IS COMPLETED
+// ✅ CHECK IF TASK 6 IS COMPLETED 
 function isTask6Completed() {
     // Check localStorage for task completion status
     const task6Completed = localStorage.getItem('task6_completed');
