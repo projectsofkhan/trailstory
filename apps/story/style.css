@@ -1,9 +1,7 @@
-/* Uses mobile feel from main OS */
-
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
   background: #000;
+  font-family: 'Inter', sans-serif;
   color: white;
   display: flex;
   align-items: center;
@@ -11,59 +9,40 @@ body {
   height: 100vh;
 }
 
-.story-container {
+.story-wrapper {
   width: 100%;
   max-width: 340px;
   padding: 20px;
 }
 
-.story-card {
-  background: rgba(255,255,255,0.08);
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-  backdrop-filter: blur(12px);
-  animation: fadeUp 0.6s ease;
+.story-box {
+  background: rgba(255,255,255,0.06);
+  border-radius: 22px;
+  padding: 26px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+  animation: rise 0.6s ease;
 }
 
-.story-step {
+.story-title {
   font-size: 12px;
-  opacity: 0.6;
-  margin-bottom: 10px;
   letter-spacing: 1px;
+  opacity: 0.6;
+  margin-bottom: 14px;
 }
 
 .story-text {
-  font-size: 16px;
-  line-height: 1.6;
-  animation: textFade 0.5s ease;
-}
-
-.task-btn {
-  margin-top: 25px;
-  width: 100%;
-  padding: 14px;
-  border-radius: 14px;
-  border: none;
-  background: linear-gradient(135deg, #5d9cff, #8f6bff);
-  color: white;
   font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  line-height: 1.7;
+  animation: fade 0.5s ease;
 }
 
-.task-btn:active {
-  transform: scale(0.96);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-}
-
-@keyframes fadeUp {
+@keyframes rise {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes textFade {
+@keyframes fade {
   from { opacity: 0; }
   to { opacity: 1; }
 }
