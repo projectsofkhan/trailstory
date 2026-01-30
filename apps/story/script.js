@@ -1,47 +1,68 @@
-const STORY_KEY = "TRAIL_STORY_STEP";
+/* ========= CONFIG ========= */
+const STORY_VERSION = "1.0.0";
+const STORY_VERSION_KEY = "STORY_APP_VERSION";
+const STORY_UNLOCK_KEY = "STORY_UNLOCKED";
 
+/* Must match task app */
+const TASK_PROGRESS_KEY = "TASK_PROGRESS";
+
+/* ========= STORY DATA ========= */
 const stories = [
-  "Everything begins quietly. You don’t notice it yet.",
-  "Small changes appear. Things feel… different.",
-  "You start connecting dots. Something is moving.",
-  "The system reacts. Not everyone sees it.",
-  "Now it’s clear. This was never random."
+  "It started quietly. Nothing felt unusual at first.",
+  "Patterns began to repeat. Small signs appeared.",
+  "You noticed changes others ignored.",
+  "The system reacted. Not everything was random.",
+  "Now you understand. This was always meant to happen."
 ];
 
-const storyStepEl = document.getElementById("storyStep");
-const storyTextEl = document.getElementById("storyText");
-const card = document.getElementById("storyCard");
-const btn = document.getElementById("nextTaskBtn");
+const storyText = document.getElementById("storyText");
 
-function getStep() {
-  return parseInt(localStorage.getItem(STORY_KEY) || "0");
+/* ========= VERSION / CACHE HANDLING ========= */
+(function handleVersion() {
+  const oldVersion = localStorage.getItem(STORY_VERSION_KEY);
+  if (oldVersion !== STORY_VERSION) {
+    localStorage.removeItem(STORY_UNLOCK_KEY);
+    localStorage.setItem(STORY_VERSION_KEY, STORY_VERSION);
+  }
+})();
+
+/* ========= HELPERS ========= */
+function getTaskCount() {
+  const val = localStorage.getItem(TASK_PROGRESS_KEY);
+  return val ? parseInt(val, 10) : 0;
 }
 
-function setStep(step) {
-  localStorage.setItem(STORY_KEY, step);
+function unlockStory() {
+  localStorage.setItem(STORY_UNLOCK_KEY, "true");
 }
 
-function render() {
-  const step = getStep();
-  storyStepEl.textContent = `Story ${step + 1}`;
-  storyTextEl.textContent = stories[step];
-
-  card.style.animation = "none";
-  card.offsetHeight;
-  card.style.animation = "fadeUp 0.6s ease";
+function isUnlocked() {
+  return localStorage.getItem(STORY_UNLOCK_KEY) === "true";
 }
 
-btn.addEventListener("click", () => {
-  let step = getStep();
-  step = (step + 1) % stories.length;
-  setStep(step);
-  render();
-});
+/* ========= RENDER ========= */
+function renderStory() {
+  const tasks = getTaskCount();
 
-/* Real-time sync (multi-tab / future OS sync) */
+  if (tasks < 5) {
+    storyText.textContent = "Complete some tasks to read the story.";
+    return;
+  }
+
+  if (!isUnlocked()) {
+    unlockStory();
+  }
+
+  const index = Math.min(tasks - 5, stories.length - 1);
+  storyText.textContent = stories[index];
+}
+
+/* ========= REAL-TIME UPDATE ========= */
 window.addEventListener("storage", (e) => {
-  if (e.key === STORY_KEY) render();
+  if (e.key === TASK_PROGRESS_KEY) {
+    renderStory();
+  }
 });
 
-/* Init */
-render();
+/* ========= INIT ========= */
+renderStory();
