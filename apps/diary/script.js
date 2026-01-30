@@ -1,3 +1,12 @@
+import { Shutter } from '../shutter/shutter.js';
+
+Shutter.open();   // from ANY app
+Shutter.close();  // synced everywhere
+
+
+
+
+
 // ✅ CHECK IF TASK 6 IS COMPLETED
 function isTask6Completed() {
     // Check localStorage for task completion status
