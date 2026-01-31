@@ -1,5 +1,8 @@
 const appGrid = document.getElementById("appGrid");
 const timeEl = document.getElementById("current-time");
+const music = document.getElementById("bgMusic");
+
+let musicOn = false;
 
 const apps = [
   { name: "Messages", icon: "💬", color: "#579AD9", file: "apps/messages/index.html" },
@@ -9,31 +12,37 @@ const apps = [
   { name: "Diary", icon: "📖", color: "#A08E77", file: "apps/diary/index.html" },
   { name: "Browser", icon: "🌐", color: "#5D6B9C", file: "apps/browser/index.html" },
   { name: "Tasks", icon: "📋", color: "#FF6B6B", file: "apps/task/index.html" },
-  { name: "Settings", icon: "⚙️", color: "#555555", file: "apps/settings/index.html" }
+  { name: "Settings", icon: "⚙️", color: "#555", file: "apps/settings/index.html" }
 ];
 
 function loadApps() {
-  appGrid.innerHTML = "";
   apps.forEach(app => {
     const a = document.createElement("a");
     a.className = "app-icon";
     a.href = app.file;
     a.target = "_blank";
-
     a.innerHTML = `
-      <div class="app-icon-body" style="background:${app.color}">
-        ${app.icon}
-      </div>
-      <div class="app-icon-label">${app.name}</div>
+      <div class="app-icon-body" style="background:${app.color}">${app.icon}</div>
+      <div>${app.name}</div>
     `;
     appGrid.appendChild(a);
   });
 }
 
+function toggleMusic() {
+  if (!musicOn) {
+    music.volume = 0.3;
+    music.play();
+    musicOn = true;
+  } else {
+    music.pause();
+    musicOn = false;
+  }
+}
+
 function updateTime() {
   const d = new Date();
-  timeEl.textContent =
-    d.getHours() + ":" + d.getMinutes().toString().padStart(2, "0");
+  timeEl.textContent = d.getHours() + ":" + d.getMinutes().toString().padStart(2, "0");
 }
 
 window.onload = () => {
