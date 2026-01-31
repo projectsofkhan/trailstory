@@ -11,44 +11,54 @@
 </head>
 
 <body>
+  <div class="phone-wrapper">
+    <div class="phone-container">
 
-<div class="phone-wrapper">
-  <div class="phone-container">
+      <!-- SHUTTER -->
+      <div class="control-panel" id="controlPanel">
+        <div class="panel-header">
+          <span>Quick Controls</span>
+          <button onclick="closePanel()">✕</button>
+        </div>
 
-    <!-- SHUTTER -->
-    <div class="control-panel" id="controlPanel">
-      <div class="panel-header">
-        <span>Quick Controls</span>
-        <button onclick="closeControlPanel()">✕</button>
+        <div class="music-controls">
+          <button class="music-btn" onclick="toggleMusic()">🎵 Toggle Music</button>
+          <button class="music-btn" onclick="playMusicOne()">▶️ Play Music 1</button>
+          <button class="music-btn" onclick="playMusicTwo()">▶️ Play Music 2</button>
+        </div>
       </div>
 
-      <button class="music-btn" onclick="toggleMusic()">🎵 Toggle Music</button>
+      <!-- NOTCH -->
+      <div class="notch"></div>
+
+      <div class="screen">
+        <div class="status-bar" id="statusBar">
+          <span id="current-time">00:00</span>
+          <span>📶 🔋</span>
+        </div>
+
+        <div class="home-screen">
+          <div class="app-grid" id="appGrid"></div>
+        </div>
+      </div>
+
+      <div class="home-bar"></div>
     </div>
-
-    <div class="notch"></div>
-
-    <div class="screen">
-      <div class="status-bar" id="statusBar">
-        <span id="current-time">00:00</span>
-        <span>📶 🔋</span>
-      </div>
-
-      <div class="home-screen">
-        <div class="app-grid" id="appGrid"></div>
-      </div>
-    </div>
-
-    <div class="home-bar"></div>
   </div>
-</div>
 
-<!-- 🔊 AUDIO (FIXED) -->
-<audio id="bgMusic" loop>
-  <source src="sounds/bgmusic.mp3" type="audio/mpeg">
-</audio>
+  <!-- AUDIO -->
+  <audio id="bgMusic1" loop>
+    <source src="sounds/bgmusic.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="bgMusic2" loop>
+    <source src="sounds/bgmusic2.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="clickSound">
+    <source src="sounds/click.mp3" type="audio/mpeg">
+  </audio>
 
-<script src="script.js"></script>
-<script src="global/phone/script.js"></script>
-
+  <!-- JS -->
+  <script src="script.js"></script>
+  <script src="global/phone/script.js"></script>
 </body>
 </html>
