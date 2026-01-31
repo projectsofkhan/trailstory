@@ -1,109 +1,119 @@
-* {
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
+*{
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
 }
 
-body {
-  margin: 0;
-  background: #222;
-  overflow: hidden;
+body{
+  margin:0;
+  background:#1c1c1c;
+  overflow:hidden;
 }
 
-.phone-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 12px;
+.phone-wrapper{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:12px;
 }
 
-.phone-container {
-  width: 340px;
-  height: 620px;
-  background: #111;
-  border-radius: 30px;
-  padding: 8px;
-  position: relative;
+.phone-container{
+  width:340px;
+  height:620px;
+  background:#111;
+  border-radius:32px;
+  padding:8px;
+  position:relative;
 }
 
-.notch {
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 26px;
-  background: #111;
-  border-radius: 0 0 14px 14px;
-  z-index: 5;
+/* NOTCH */
+.notch{
+  position:absolute;
+  top:8px;
+  left:50%;
+  transform:translateX(-50%);
+  width:120px;
+  height:26px;
+  background:#111;
+  border-radius:0 0 16px 16px;
+  z-index:10;
 }
 
-.screen {
-  height: 100%;
-  border-radius: 22px;
-  overflow: hidden;
-  position: relative;
+/* SCREEN */
+.screen{
+  height:100%;
+  border-radius:24px;
+  overflow:hidden;
+  position:relative;
 }
 
-.status-bar {
-  height: 36px;
-  padding: 0 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  font-size: 11px;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 10;
+/* STATUS BAR */
+.status-bar{
+  height:38px;
+  padding:0 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:white;
+  font-size:11px;
+  position:absolute;
+  top:0;
+  width:100%;
+  z-index:12;
 }
 
-.status-icons {
-  display: flex;
-  gap: 6px;
+.status-icons{
+  display:flex;
+  gap:6px;
 }
 
-/* SHUTTER – HIDDEN PROPERLY */
-.control-panel {
-  position: absolute;
-  inset: 0;
-  height: 55%;
-  background: rgba(0,0,0,0.96);
-  transform: translateY(-100%);
-  transition: transform .35s ease;
-  z-index: 20;
-  padding: 60px 18px;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
+.status-icons svg{
+  width:18px;
+  height:14px;
+  fill:white;
 }
 
-.control-panel.open {
-  transform: translateY(0);
+/* SHUTTER — COMPLETELY HIDDEN */
+.control-panel{
+  position:absolute;
+  inset:0;
+  height:55%;
+  background:rgba(0,0,0,0.96);
+  transform:translateY(-100%);
+  transition:transform .35s ease;
+  z-index:20;
+  padding:60px 20px;
+  border-radius:0 0 26px 26px;
 }
 
-.quick-controls {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+.control-panel.open{
+  transform:translateY(0);
 }
 
-.qc-item {
-  padding: 16px;
-  background: #1e1e1e;
-  color: #fff;
-  border-radius: 14px;
-  text-align: center;
-  font-size: 14px;
+.qc-header{
+  color:white;
+  font-size:14px;
+  margin-bottom:16px;
 }
 
-.home-bar {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 4px;
-  background: rgba(255,255,255,.35);
-  border-radius: 10px;
+.qc-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#1f1f1f;
+  color:white;
+  font-size:14px;
+}
+
+/* HOME BAR */
+.home-bar{
+  position:absolute;
+  bottom:12px;
+  left:50%;
+  transform:translateX(-50%);
+  width:100px;
+  height:4px;
+  background:rgba(255,255,255,.35);
+  border-radius:10px;
 }
