@@ -1,31 +1,26 @@
-const controlPanel = document.getElementById("controlPanel");
-const statusBar = document.getElementById("statusBar");
+const panel = document.getElementById("controlPanel");
+const bar = document.getElementById("statusBar");
 
 let startY = 0;
-let pulling = false;
+let active = false;
 
-function openPanel() { controlPanel.classList.add("open"); }
-function closePanel() { controlPanel.classList.remove("open"); }
-
-statusBar.addEventListener("touchstart", e => {
+bar.addEventListener("touchstart", e => {
   startY = e.touches[0].clientY;
-  pulling = true;
+  active = true;
 });
 
-statusBar.addEventListener("touchmove", e => {
-  if (!pulling) return;
+bar.addEventListener("touchmove", e => {
+  if (!active) return;
   if (e.touches[0].clientY - startY > 45) {
-    openPanel();
-    pulling = false;
+    panel.classList.add("open");
+    active = false;
   }
 });
 
-statusBar.addEventListener("touchend", () => pulling = false);
+bar.addEventListener("touchend", () => active = false);
 
-document.addEventListener("click", e => {
-  if (controlPanel.classList.contains("open") &&
-      !controlPanel.contains(e.target) &&
-      !statusBar.contains(e.target)) {
-    closePanel();
+document.addEventListener("touchstart", e => {
+  if (panel.classList.contains("open") && !panel.contains(e.target) && !bar.contains(e.target)) {
+    panel.classList.remove("open");
   }
 });
