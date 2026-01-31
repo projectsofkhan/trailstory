@@ -1,22 +1,22 @@
-const panel = document.getElementById("controlPanel");
-const bar = document.getElementById("statusBar");
+const panel=document.getElementById("controlPanel");
+const bar=document.getElementById("statusBar");
 
-let startY=0, dragging=false;
+let startY=0,drag=false;
 
 bar.addEventListener("touchstart",e=>{
   startY=e.touches[0].clientY;
-  dragging=true;
+  drag=true;
 });
 
 bar.addEventListener("touchmove",e=>{
-  if(!dragging) return;
+  if(!drag) return;
   if(e.touches[0].clientY-startY>55){
     panel.classList.add("open");
-    dragging=false;
+    drag=false;
   }
 });
 
-bar.addEventListener("touchend",()=>dragging=false);
+bar.addEventListener("touchend",()=>drag=false);
 
 document.addEventListener("touchstart",e=>{
   if(panel.classList.contains("open") &&
