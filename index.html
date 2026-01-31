@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#000000">
-  <title>Home Screen</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Trail Story</title>
 
-  <!-- GLOBAL PHONE UI -->
+  <!-- PHONE FRAME FIRST -->
   <link rel="stylesheet" href="global/phone/style.css">
-  <!-- HOME STYLES -->
+  <!-- APP UI -->
   <link rel="stylesheet" href="style.css">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
   <div class="phone-wrapper">
     <div class="phone-container">
 
-      <!-- CONTROL PANEL -->
       <div class="control-panel" id="controlPanel">
         <div class="panel-header">
           <span>Quick Controls</span>
@@ -27,10 +25,8 @@
         </div>
       </div>
 
-      <!-- NOTCH -->
       <div class="notch"></div>
 
-      <!-- SCREEN -->
       <div class="screen">
         <div class="status-bar" id="statusBar">
           <span id="current-time">00:00</span>
@@ -48,7 +44,8 @@
 
   <!-- SYSTEM -->
   <script src="script.js"></script>
-  <!-- PHONE HARDWARE -->
+  <!-- HARDWARE -->
   <script src="global/phone/script.js"></script>
+
 </body>
 </html>
