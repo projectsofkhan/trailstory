@@ -1,7 +1,11 @@
+* {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
 body {
   margin: 0;
-  background: #333;
-  font-family: 'Inter', sans-serif;
+  background: #222;
   overflow: hidden;
 }
 
@@ -20,7 +24,6 @@ body {
   border-radius: 30px;
   padding: 8px;
   position: relative;
-  box-shadow: 0 25px 60px rgba(0,0,0,.7);
 }
 
 .notch {
@@ -28,11 +31,11 @@ body {
   top: 8px;
   left: 50%;
   transform: translateX(-50%);
-  width: 130px;
+  width: 120px;
   height: 26px;
   background: #111;
-  border-radius: 0 0 16px 16px;
-  z-index: 20;
+  border-radius: 0 0 14px 14px;
+  z-index: 5;
 }
 
 .screen {
@@ -43,55 +46,55 @@ body {
 }
 
 .status-bar {
-  height: 38px;
+  height: 36px;
   padding: 0 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 11px;
   color: #fff;
+  font-size: 11px;
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: 30;
+  z-index: 10;
 }
 
+.status-icons {
+  display: flex;
+  gap: 6px;
+}
+
+/* SHUTTER – HIDDEN PROPERLY */
 .control-panel {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  inset: 0;
   height: 55%;
-  background: rgba(0,0,0,0.95);
-  backdrop-filter: blur(20px);
+  background: rgba(0,0,0,0.96);
   transform: translateY(-100%);
-  transition: transform 0.35s ease;
-  z-index: 50;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-  padding: 55px 20px 20px;
+  transition: transform .35s ease;
+  z-index: 20;
+  padding: 60px 18px;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
 }
 
 .control-panel.open {
   transform: translateY(0);
 }
 
-.panel-header {
-  display: flex;
-  justify-content: space-between;
-  color: white;
-  margin-bottom: 20px;
+.quick-controls {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
 
-.music-btn {
-  width: 100%;
-  padding: 14px;
-  background: #222;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 15px;
-  margin-bottom: 10px;
+.qc-item {
+  padding: 16px;
+  background: #1e1e1e;
+  color: #fff;
+  border-radius: 14px;
+  text-align: center;
+  font-size: 14px;
 }
 
 .home-bar {
@@ -99,8 +102,8 @@ body {
   bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
-  width: 110px;
+  width: 100px;
   height: 4px;
-  background: rgba(255,255,255,.4);
+  background: rgba(255,255,255,.35);
   border-radius: 10px;
 }
