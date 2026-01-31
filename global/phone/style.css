@@ -1,0 +1,103 @@
+/* global/phone/style.css - Core Phone Frame Styling */
+/* Import the font globally */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* The main phone container - RESPONSIVE */
+.phone-container {
+    width: 100%;
+    max-width: 375px;
+    height: auto;
+    min-height: 700px;
+    max-height: 85vh;
+    background: #111;
+    border-radius: 45px;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.8),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+        inset 0 0 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    margin: 20px auto;
+    padding: 12px;
+    border: 12px solid #050505;
+}
+
+/* Internal screen */
+.phone-container .screen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 35px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Notch */
+.notch {
+    width: 55%;
+    height: 30px;
+    background: #000;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+/* Status Bar */
+.status-bar {
+    padding: 10px 20px 5px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 999;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Home Bar */
+.home-bar {
+    width: 130px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+/* Responsive Rules */
+@media (max-height: 750px) {
+    .phone-container {
+        max-height: 90vh;
+        min-height: 600px;
+        border-width: 10px;
+        padding: 10px;
+        margin: 10px auto;
+    }
+    .home-bar {
+        bottom: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .phone-container {
+        border-radius: 35px;
+        max-width: 95vw;
+    }
+}
