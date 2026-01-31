@@ -1,22 +1,15 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-}
-
 body {
+  margin: 0;
   background: #333;
-  font-family: Inter, sans-serif;
+  font-family: 'Inter', sans-serif;
   overflow: hidden;
 }
 
 .phone-wrapper {
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
   padding: 12px;
 }
 
@@ -30,7 +23,6 @@ body {
   box-shadow: 0 25px 60px rgba(0,0,0,.7);
 }
 
-/* notch */
 .notch {
   position: absolute;
   top: 8px;
@@ -50,7 +42,6 @@ body {
   position: relative;
 }
 
-/* status bar */
 .status-bar {
   height: 38px;
   padding: 0 14px;
@@ -65,22 +56,24 @@ body {
   z-index: 30;
 }
 
-/* SHUTTER */
 .control-panel {
   position: absolute;
-  top: -320px;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 320px;
-  background: rgba(0,0,0,.95);
-  backdrop-filter: blur(18px);
-  transition: top .3s ease;
+  height: 55%;
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(20px);
+  transform: translateY(-100%);
+  transition: transform 0.35s ease;
   z-index: 50;
-  padding: 50px 20px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  padding: 55px 20px 20px;
 }
 
 .control-panel.open {
-  top: 0;
+  transform: translateY(0);
 }
 
 .panel-header {
@@ -98,9 +91,9 @@ body {
   border: none;
   border-radius: 12px;
   font-size: 15px;
+  margin-bottom: 10px;
 }
 
-/* home bar */
 .home-bar {
   position: absolute;
   bottom: 12px;
@@ -110,9 +103,4 @@ body {
   height: 4px;
   background: rgba(255,255,255,.4);
   border-radius: 10px;
-}
-
-/* RESPONSIVE */
-@media (max-height: 700px) {
-  .phone-container { height: 580px; }
 }
