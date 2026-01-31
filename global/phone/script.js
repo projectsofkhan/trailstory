@@ -2,25 +2,27 @@ const panel = document.getElementById("controlPanel");
 const bar = document.getElementById("statusBar");
 
 let startY = 0;
-let active = false;
+let dragging = false;
 
-bar.addEventListener("touchstart", e => {
+bar.addEventListener("touchstart", e=>{
   startY = e.touches[0].clientY;
-  active = true;
+  dragging = true;
 });
 
-bar.addEventListener("touchmove", e => {
-  if (!active) return;
-  if (e.touches[0].clientY - startY > 45) {
+bar.addEventListener("touchmove", e=>{
+  if(!dragging) return;
+  if(e.touches[0].clientY - startY > 50){
     panel.classList.add("open");
-    active = false;
+    dragging = false;
   }
 });
 
-bar.addEventListener("touchend", () => active = false);
+bar.addEventListener("touchend", ()=>dragging=false);
 
-document.addEventListener("touchstart", e => {
-  if (panel.classList.contains("open") && !panel.contains(e.target) && !bar.contains(e.target)) {
+document.addEventListener("touchstart", e=>{
+  if(panel.classList.contains("open") &&
+     !panel.contains(e.target) &&
+     !bar.contains(e.target)){
     panel.classList.remove("open");
   }
 });
