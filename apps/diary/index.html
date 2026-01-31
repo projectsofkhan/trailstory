@@ -2,72 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diary</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../style.css">
 </head>
 <body>
-    <div class="phone-container">
-        <div class="notch"></div>
-        <div class="screen">
-            <div class="status-bar">
-                <div class="left-icons">
-                    <span>◇</span>
-                    <span id="current-time">1:37</span>
-                </div>
-                <div class="center-text">Diary</div>
-                <div class="right-icons">
-                    <span>📶</span>
-                    <span>🔋</span>
-                </div>
-            </div>
-
-            <div class="app-page">
-                <div class="app-header">
-                    <button class="back-button" onclick="closeAppAndReturnHome()">←</button>
-                    <div class="app-title">Diary</div>
-                    <div style="width: 40px;"></div>
-                </div>
-
-                <div class="diary-container">
-                    <div class="pages-grid" id="pagesGrid">
-                        <div class="page-item" id="page1-item" onclick="openPage('page1')">
-                            <div class="page-number">01</div>
-                            <div class="page-title">Page 01</div>
-                        </div>
-                        <div class="page-item locked" onclick="openLockedPage()">
-                            <div class="page-number">02</div>
-                            <div class="page-title">Page 02</div>
-                        </div>
-                        <div class="page-item locked" onclick="openLockedPage()">
-                            <div class="page-number">03</div>
-                            <div class="page-title">Page 03</div>
-                        </div>
-                        <div class="page-item locked" onclick="openLockedPage()">
-                            <div class="page-number">04</div>
-                            <div class="page-title">Page 04</div>
-                        </div>
-                        <div class="page-item locked" onclick="openLockedPage()">
-                            <div class="page-number">05</div>
-                            <div class="page-title">Page 05</div>
-                        </div>
-                        <div class="page-item locked" onclick="openLockedPage()">
-                            <div class="page-number">06</div>
-                            <div class="page-title">Page 06</div>
-                        </div>
-                        <div class="page-item locked" onclick="openLockedPage()">
-                            <div class="page-number">07</div>
-                            <div class="page-title">Page 07</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="home-screen">
+        <div class="app-header">
+            <button onclick="window.location.href='../../index.html'">⬅ Back</button>
+            <h1>Diary</h1>
         </div>
 
-        <div class="home-bar"></div>
+        <div class="diary-content">
+            <p>Welcome to your diary. Select a page:</p>
+            <ul>
+                <li><a href="page1/index.html">Page 1</a></li>
+                <!-- Add more pages here -->
+            </ul>
+        </div>
     </div>
-
-    <script src="script.js"></script>
+    <script src="../../script.js"></script>
 </body>
 </html>
