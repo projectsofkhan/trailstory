@@ -1,85 +1,73 @@
-body {
-  margin: 0;
-  background: #0a0a0a;
-  font-family: Inter, sans-serif;
+:root {
+  --phone-width: 340px;
+  --phone-height: 640px; /* ⬅️ SHORTER */
+  --radius: 30px;
 }
 
-/* CENTER PHONE */
+body {
+  margin: 0;
+  background: #333;
+  font-family: 'Inter', sans-serif;
+}
+
 .phone-wrapper {
   min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 12px;
+  align-items: center;
+  padding: 10px;
 }
 
-/* PHONE FRAME */
 .phone-container {
-  width: 390px;
-  height: 844px;
-  background: #000;
-  border-radius: 34px;
-  box-shadow: 0 40px 100px rgba(0,0,0,.7);
+  width: var(--phone-width);
+  height: var(--phone-height);
+  background: #111;
+  border-radius: var(--radius);
+  padding: 8px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.7);
   position: relative;
-  overflow: hidden;
 }
 
-/* NOTCH */
 .notch {
-  width: 140px;
-  height: 30px;
-  background: #000;
-  border-radius: 0 0 16px 16px;
-  margin: auto;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 24px;
+  background: #111;
+  border-radius: 0 0 14px 14px;
+  z-index: 5;
 }
 
-/* SCREEN */
 .screen {
   height: 100%;
-  color: white;
+  border-radius: calc(var(--radius) - 8px);
+  overflow: hidden;
+  position: relative;
 }
 
-/* STATUS BAR */
 .status-bar {
-  height: 44px;
-  padding: 0 16px;
+  height: 38px;
+  padding: 0 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  user-select: none;
-}
-
-/* CONTROL PANEL */
-.control-panel {
+  color: #fff;
+  font-size: 11px;
+  z-index: 3;
   position: absolute;
-  top: -100%;
-  left: 0;
-  width: 100%;
-  height: 60%;
-  background: rgba(30,30,30,.95);
-  backdrop-filter: blur(20px);
-  transition: top .3s ease;
-  z-index: 20;
-}
-
-.control-panel.open {
   top: 0;
+  width: 100%;
 }
 
-.panel-header {
-  padding: 16px;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* HOME BAR */
 .home-bar {
   position: absolute;
-  bottom: 10px;
+  bottom: 12px;
   left: 50%;
-  width: 120px;
-  height: 4px;
-  background: #888;
-  border-radius: 8px;
   transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: rgba(255,255,255,.4);
+  border-radius: 10px;
 }
