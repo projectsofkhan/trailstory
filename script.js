@@ -1,8 +1,6 @@
 const appGrid = document.getElementById("appGrid");
 const timeEl = document.getElementById("current-time");
-const music = document.getElementById("bgMusic");
-
-let musicOn = false;
+const clickSound = document.getElementById("clickSound");
 
 const apps = [
   { name: "Messages", icon: "💬", color: "#579AD9", file: "apps/messages/index.html" },
@@ -16,6 +14,7 @@ const apps = [
 ];
 
 function loadApps() {
+  appGrid.innerHTML = "";
   apps.forEach(app => {
     const a = document.createElement("a");
     a.className = "app-icon";
@@ -23,27 +22,34 @@ function loadApps() {
     a.target = "_blank";
     a.innerHTML = `
       <div class="app-icon-body" style="background:${app.color}">${app.icon}</div>
-      <div>${app.name}</div>
+      <div class="app-icon-label">${app.name}</div>
     `;
     appGrid.appendChild(a);
   });
 }
 
-function toggleMusic() {
-  if (!musicOn) {
-    music.volume = 0.3;
-    music.play();
-    musicOn = true;
-  } else {
-    music.pause();
-    musicOn = false;
-  }
-}
-
 function updateTime() {
   const d = new Date();
-  timeEl.textContent = d.getHours() + ":" + d.getMinutes().toString().padStart(2, "0");
+  timeEl.textContent = d.getHours() + ":" + d.getMinutes().toString().padStart(2,"0");
 }
+
+function toggleMusic() {
+  const bg = document.getElementById("bgMusic1");
+  if (!bg) return;
+  if (bg.paused) bg.play(); else bg.pause();
+}
+
+function playMusicOne() { toggleMusic(); }
+function playMusicTwo() { toggleMusic(); }
+
+/* CLICK SOUND */
+document.addEventListener("click", e => {
+  const target = e.target.closest("a, button, .app-icon, .music-btn, .status-bar");
+  if (target && clickSound) {
+    clickSound.currentTime = 0;
+    clickSound.play().catch(()=>{});
+  }
+});
 
 window.onload = () => {
   loadApps();
