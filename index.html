@@ -7,34 +7,44 @@
 
 <link rel="stylesheet" href="global/phone/style.css">
 <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <div class="phone-wrapper">
     <div class="phone-container">
 
-      <!-- SHUTTER -->
+      <!-- CONTROL PANEL (HIDDEN BY DEFAULT) -->
       <div class="control-panel" id="controlPanel">
-        <div class="panel-header">
-          <span>Quick Controls</span>
-          <button onclick="closePanel()">✕</button>
-        </div>
-
-        <div class="music-controls">
-          <button class="music-btn" onclick="toggleMusic()">🎵 Toggle Music</button>
-          <button class="music-btn" onclick="playMusicOne()">▶️ Play Music 1</button>
-          <button class="music-btn" onclick="playMusicTwo()">▶️ Play Music 2</button>
+        <div class="quick-controls">
+          <div class="qc-item">Wi-Fi</div>
+          <div class="qc-item">Data</div>
+          <div class="qc-item">Silent</div>
+          <div class="qc-item">Airplane</div>
         </div>
       </div>
 
-      <!-- NOTCH -->
       <div class="notch"></div>
 
       <div class="screen">
         <div class="status-bar" id="statusBar">
           <span id="current-time">00:00</span>
-          <span>📶 🔋</span>
+
+          <div class="status-icons">
+            <!-- SIGNAL -->
+            <svg width="16" height="16" viewBox="0 0 24 24">
+              <rect x="2" y="14" width="3" height="8" fill="#fff"/>
+              <rect x="7" y="11" width="3" height="11" fill="#fff"/>
+              <rect x="12" y="8" width="3" height="14" fill="#fff"/>
+              <rect x="17" y="5" width="3" height="17" fill="#fff"/>
+            </svg>
+
+            <!-- BATTERY -->
+            <svg width="20" height="16" viewBox="0 0 26 14">
+              <rect x="1" y="1" width="22" height="12" rx="2" ry="2" stroke="#fff" fill="none"/>
+              <rect x="3" y="3" width="16" height="8" fill="#fff"/>
+              <rect x="23" y="4" width="2" height="6" fill="#fff"/>
+            </svg>
+          </div>
         </div>
 
         <div class="home-screen">
@@ -46,19 +56,7 @@
     </div>
   </div>
 
-  <!-- AUDIO -->
-  <audio id="bgMusic1" loop>
-    <source src="sounds/bgmusic.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="bgMusic2" loop>
-    <source src="sounds/bgmusic2.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="clickSound">
-    <source src="sounds/click.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- JS -->
-  <script src="script.js"></script>
-  <script src="global/phone/script.js"></script>
+<script src="script.js"></script>
+<script src="global/phone/script.js"></script>
 </body>
 </html>
