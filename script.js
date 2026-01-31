@@ -1,6 +1,7 @@
 const appGrid = document.getElementById("appGrid");
 const timeEl = document.getElementById("current-time");
 const bgMusic = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
 
 const clickSound = new Audio(
   "https://projectsofkhan.github.io/Trail/sounds/click.mp3"
@@ -16,14 +17,18 @@ document.addEventListener("click", e=>{
 
 let musicOn=false;
 function toggleMusic(){
-  if(musicOn){
-    bgMusic.pause();
-  }else{
-    bgMusic.play();
-  }
   musicOn=!musicOn;
+
+  if(musicOn){
+    bgMusic.play();
+    musicBtn.classList.add("on");
+  }else{
+    bgMusic.pause();
+    musicBtn.classList.remove("on");
+  }
 }
 
+/* APPS */
 const apps=[
  {name:"Messages",icon:"💬",color:"#579AD9",file:"apps/messages/index.html"},
  {name:"Phone",icon:"📞",color:"#6BBF6B",file:"apps/phone/index.html"},
@@ -47,6 +52,7 @@ apps.forEach(app=>{
   appGrid.appendChild(a);
 });
 
+/* TIME */
 function updateTime(){
   const d=new Date();
   timeEl.textContent=d.getHours()+":"+d.getMinutes().toString().padStart(2,"0");
