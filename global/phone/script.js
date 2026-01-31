@@ -1,36 +1,31 @@
-const panel = document.getElementById("controlPanel");
+const controlPanel = document.getElementById("controlPanel");
 const statusBar = document.getElementById("statusBar");
 
 let startY = 0;
-let dragging = false;
+let pulling = false;
 
-function openControlPanel() {
-  panel.classList.add("open");
-}
-
-function closeControlPanel() {
-  panel.classList.remove("open");
-}
+function openPanel() { controlPanel.classList.add("open"); }
+function closePanel() { controlPanel.classList.remove("open"); }
 
 statusBar.addEventListener("touchstart", e => {
   startY = e.touches[0].clientY;
-  dragging = true;
+  pulling = true;
 });
 
 statusBar.addEventListener("touchmove", e => {
-  if (!dragging) return;
-  if (e.touches[0].clientY - startY > 60) {
-    openControlPanel();
-    dragging = false;
+  if (!pulling) return;
+  if (e.touches[0].clientY - startY > 45) {
+    openPanel();
+    pulling = false;
   }
 });
 
-statusBar.addEventListener("touchend", () => dragging = false);
+statusBar.addEventListener("touchend", () => pulling = false);
 
 document.addEventListener("click", e => {
-  if (panel.classList.contains("open") &&
-      !panel.contains(e.target) &&
+  if (controlPanel.classList.contains("open") &&
+      !controlPanel.contains(e.target) &&
       !statusBar.contains(e.target)) {
-    closeControlPanel();
+    closePanel();
   }
 });
