@@ -1,5 +1,5 @@
 const appGrid = document.getElementById("appGrid");
-const currentTime = document.getElementById("current-time");
+const timeEl = document.getElementById("current-time");
 
 const apps = [
   { name: "Messages", icon: "💬", file: "apps/messages/index.html" },
@@ -12,18 +12,11 @@ const apps = [
   { name: "Settings", icon: "⚙️", file: "apps/settings/index.html" }
 ];
 
-function updateTime() {
-  const d = new Date();
-  currentTime.textContent =
-    d.getHours() + ":" + d.getMinutes().toString().padStart(2, "0");
-}
-
 function loadApps() {
   apps.forEach(app => {
     const a = document.createElement("a");
     a.className = "app-icon";
     a.href = app.file;
-    a.target = "_blank";
     a.innerHTML = `
       <div class="app-icon-body">${app.icon}</div>
       <div class="app-icon-label">${app.name}</div>
@@ -32,9 +25,14 @@ function loadApps() {
   });
 }
 
+function updateTime() {
+  const d = new Date();
+  timeEl.textContent =
+    d.getHours() + ":" + d.getMinutes().toString().padStart(2, "0");
+}
+
 window.onload = () => {
   loadApps();
   updateTime();
   setInterval(updateTime, 60000);
-  console.log("✅ System Ready");
 };
