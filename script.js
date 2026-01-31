@@ -1,69 +1,39 @@
-// DOM
-const appGrid = document.getElementById("appGrid");
-const timeEl = document.getElementById("current-time");
-const bgMusic = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicBtn");
+const bgMusic=document.getElementById("bgMusic");
+const musicIcon=document.getElementById("musicIcon");
 
-// CLICK SOUND (ROOT)
-const clickSound = new Audio("click.mp3");
-clickSound.volume = 0.4;
+let musicOn=false;
 
-document.addEventListener("click", e => {
-  if (
-    e.target.closest("button") ||
-    e.target.closest(".app-icon") ||
-    e.target.closest(".status-bar")
-  ) {
-    clickSound.currentTime = 0;
-    clickSound.play().catch(()=>{});
-  }
-});
-
-// MUSIC
-let musicOn = false;
-function toggleMusic() {
-  musicOn = !musicOn;
-  if (musicOn) {
+musicIcon.onclick=()=>{
+  musicOn=!musicOn;
+  if(musicOn){
     bgMusic.play().catch(()=>{});
-    musicBtn.classList.add("on");
-  } else {
+    musicIcon.classList.add("on");
+  }else{
     bgMusic.pause();
-    musicBtn.classList.remove("on");
+    musicIcon.classList.remove("on");
   }
-}
+};
 
-// TIME
-function updateTime() {
-  const d = new Date();
-  timeEl.textContent =
-    d.getHours() + ":" + d.getMinutes().toString().padStart(2,"0");
-}
-updateTime();
-setInterval(updateTime, 60000);
+/* SHUTTER APPS */
+const qcApps=document.getElementById("qcApps");
 
-// APPS
-const apps = [
-  {name:"Messages",icon:"💬",color:"#579AD9",file:"apps/messages/index.html"},
-  {name:"Phone",icon:"📞",color:"#6BBF6B",file:"apps/phone/index.html"},
-  {name:"Gallery",icon:"🌄",color:"#6A618F",file:"apps/gallery/index.html"},
-  {name:"Instashan",icon:"📸",color:"#9B5BBE",file:"apps/instashan/index.html"},
-  {name:"Diary",icon:"📖",color:"#A08E77",file:"apps/diary/index.html"},
-  {name:"Browser",icon:"🌐",color:"#5D6B9C",file:"apps/browser/index.html"},
-  {name:"Tasks",icon:"📋",color:"#FF6B6B",file:"apps/task/index.html"},
-  {name:"Settings",icon:"⚙️",color:"#555",file:"apps/settings/index.html"}
+const apps=[
+ {n:"Msg",i:"💬",c:"#579AD9",f:"apps/messages/index.html"},
+ {n:"Call",i:"📞",c:"#6BBF6B",f:"apps/phone/index.html"},
+ {n:"Gal",i:"🌄",c:"#6A618F",f:"apps/gallery/index.html"},
+ {n:"Insta",i:"📸",c:"#9B5BBE",f:"apps/instashan/index.html"},
+ {n:"Diary",i:"📖",c:"#A08E77",f:"apps/diary/index.html"},
+ {n:"Web",i:"🌐",c:"#5D6B9C",f:"apps/browser/index.html"},
+ {n:"Task",i:"📋",c:"#FF6B6B",f:"apps/task/index.html"},
+ {n:"Set",i:"⚙️",c:"#555",f:"apps/settings/index.html"}
 ];
 
-apps.forEach(app => {
-  const a = document.createElement("a");
-  a.className = "app-icon";
-  a.href = app.file;
-  a.innerHTML = `
-    <div class="app-icon-body" style="background:${app.color}">
-      ${app.icon}
-    </div>
-    <div class="app-icon-label">${app.name}</div>
-  `;
-  appGrid.appendChild(a);
+apps.forEach(a=>{
+  const d=document.createElement("div");
+  d.className="qc-app";
+  d.innerHTML=`
+    <div class="qc-app-icon" style="background:${a.c}">${a.i}</div>
+    ${a.n}`;
+  d.onclick=()=>location.href=a.f;
+  qcApps.appendChild(d);
 });
-
-console.log("✅ Trail system ready");
