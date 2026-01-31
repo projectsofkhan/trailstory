@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#000000">
     <title>Home Screen</title>
-    <!-- 1. Core Phone Frame from Global -->
+    <!-- CRITICAL: Correct path to phone frame styles -->
     <link rel="stylesheet" href="global/phone/style.css">
-    <!-- 2. Root-specific content styles -->
+    <!-- Correct path to home screen styles -->
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -58,7 +58,6 @@
                 <div class="app-grid" id="appGrid"></div>
             </div>
         </div>
-
         <div class="home-bar"></div>
     </div>
 
@@ -70,6 +69,7 @@
         <source src="https://projectsofkhan.github.io/Trail/sounds/bgmusic2.mp3" type="audio/mpeg">
     </audio>
 
-    <script src="script.js"></script>
+    <!-- CRITICAL: Correct path to global script -->
+    <script src="global/script.js"></script>
 </body>
 </html>
