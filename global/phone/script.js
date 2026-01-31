@@ -4,12 +4,12 @@ const statusBar = document.getElementById("statusBar");
 let startY = 0;
 let active = false;
 
-function closePanel() {
-  panel.classList.remove("open");
-}
-
 function openPanel() {
   panel.classList.add("open");
+}
+
+function closePanel() {
+  panel.classList.remove("open");
 }
 
 statusBar.addEventListener("touchstart", e => {
