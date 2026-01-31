@@ -2,30 +2,30 @@ const panel = document.getElementById("controlPanel");
 const statusBar = document.getElementById("statusBar");
 
 let startY = 0;
-let pulling = false;
-
-function openPanel() {
-  panel.classList.add("open");
-}
+let active = false;
 
 function closePanel() {
   panel.classList.remove("open");
 }
 
+function openPanel() {
+  panel.classList.add("open");
+}
+
 statusBar.addEventListener("touchstart", e => {
   startY = e.touches[0].clientY;
-  pulling = true;
+  active = true;
 });
 
 statusBar.addEventListener("touchmove", e => {
-  if (!pulling) return;
+  if (!active) return;
   if (e.touches[0].clientY - startY > 60) {
     openPanel();
-    pulling = false;
+    active = false;
   }
 });
 
-statusBar.addEventListener("touchend", () => pulling = false);
+statusBar.addEventListener("touchend", () => active = false);
 
 document.addEventListener("click", e => {
   if (panel.classList.contains("open") &&
@@ -34,5 +34,3 @@ document.addEventListener("click", e => {
     closePanel();
   }
 });
-
-console.log("📱 Shutter active");
