@@ -3,58 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>TrailStory</title>
+<title>Home</title>
 
 <link rel="stylesheet" href="global/phone/style.css">
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div class="phone-wrapper">
-    <div class="phone-container">
+<div class="phone-wrapper">
+  <div class="phone-container">
 
-      <!-- CONTROL PANEL (HIDDEN BY DEFAULT) -->
-      <div class="control-panel" id="controlPanel">
-        <div class="quick-controls">
-          <div class="qc-item">Wi-Fi</div>
-          <div class="qc-item">Data</div>
-          <div class="qc-item">Silent</div>
-          <div class="qc-item">Airplane</div>
-        </div>
-      </div>
+    <!-- SHUTTER / QUICK CONTROLS -->
+    <div class="control-panel" id="controlPanel">
+      <div class="qc-header">Quick Controls</div>
 
-      <div class="notch"></div>
-
-      <div class="screen">
-        <div class="status-bar" id="statusBar">
-          <span id="current-time">00:00</span>
-
-          <div class="status-icons">
-            <!-- SIGNAL -->
-            <svg width="16" height="16" viewBox="0 0 24 24">
-              <rect x="2" y="14" width="3" height="8" fill="#fff"/>
-              <rect x="7" y="11" width="3" height="11" fill="#fff"/>
-              <rect x="12" y="8" width="3" height="14" fill="#fff"/>
-              <rect x="17" y="5" width="3" height="17" fill="#fff"/>
-            </svg>
-
-            <!-- BATTERY -->
-            <svg width="20" height="16" viewBox="0 0 26 14">
-              <rect x="1" y="1" width="22" height="12" rx="2" ry="2" stroke="#fff" fill="none"/>
-              <rect x="3" y="3" width="16" height="8" fill="#fff"/>
-              <rect x="23" y="4" width="2" height="6" fill="#fff"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="home-screen">
-          <div class="app-grid" id="appGrid"></div>
-        </div>
-      </div>
-
-      <div class="home-bar"></div>
+      <button class="qc-btn" onclick="toggleMusic()">
+        🎵 Background Music
+      </button>
     </div>
+
+    <div class="notch"></div>
+
+    <div class="screen">
+      <div class="status-bar" id="statusBar">
+        <span id="current-time">00:00</span>
+
+        <div class="status-icons">
+          <!-- SIGNAL -->
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="14" width="3" height="7"/>
+            <rect x="8" y="11" width="3" height="10"/>
+            <rect x="13" y="8" width="3" height="13"/>
+            <rect x="18" y="5" width="3" height="16"/>
+          </svg>
+
+          <!-- BATTERY -->
+          <svg viewBox="0 0 26 14">
+            <rect x="1" y="1" width="22" height="12" rx="2" ry="2" fill="none" stroke="white"/>
+            <rect x="3" y="3" width="16" height="8"/>
+            <rect x="23" y="4" width="2" height="6"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="home-screen">
+        <div class="app-grid" id="appGrid"></div>
+      </div>
+    </div>
+
+    <div class="home-bar"></div>
   </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="https://projectsofkhan.github.io/Trail/sounds/bgmusic2.mp3">
+</audio>
 
 <script src="script.js"></script>
 <script src="global/phone/script.js"></script>
