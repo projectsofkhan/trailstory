@@ -1,10 +1,9 @@
-let currentContact = '';
+let currentContact = "";
 
 function updateTime(){
   const d = new Date();
-  const h = d.getHours();
-  const m = String(d.getMinutes()).padStart(2,'0');
-  document.getElementById("current-time").textContent = `${h}:${m}`;
+  document.getElementById("current-time").textContent =
+    d.getHours() + ":" + String(d.getMinutes()).padStart(2,"0");
 }
 
 function closeAppAndReturnHome(){
@@ -16,13 +15,12 @@ function closeAppAndReturnHome(){
 
 function formatContactName(name){
   if(name === "Mr. Ray") return "Misterray";
-  return name.toLowerCase().replace(/[^a-z0-9]/g,'');
+  return name.toLowerCase().replace(/[^a-z0-9]/g,"");
 }
 
 function openContact(name){
-  const path = formatContactName(name);
-  window.location.href =
-    `https://projectsofkhan.github.io/Trail/apps/phone/contacts/${path}/index.html`;
+  location.href =
+    `https://projectsofkhan.github.io/Trail/apps/phone/contacts/${formatContactName(name)}/index.html`;
 }
 
 function showPasswordPrompt(name){
@@ -38,8 +36,7 @@ function closePasswordPrompt(){
 }
 
 function checkPassword(){
-  const val = document.getElementById("passwordInput").value;
-  if(val.length > 0){
+  if(document.getElementById("passwordInput").value){
     openContact(currentContact);
   }
 }
