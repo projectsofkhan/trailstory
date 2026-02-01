@@ -1,44 +1,51 @@
-let currentContact='';
+let currentContact = '';
 
 function updateTime(){
- const d=new Date();
- document.getElementById("current-time").textContent=
- d.getHours()+":"+String(d.getMinutes()).padStart(2,'0');
+  const d = new Date();
+  const h = d.getHours();
+  const m = String(d.getMinutes()).padStart(2,'0');
+  document.getElementById("current-time").textContent = `${h}:${m}`;
 }
 
 function closeAppAndReturnHome(){
- if(window.opener && !window.opener.closed){
-   window.opener.focus();
- }
- window.close();
+  if(window.opener && !window.opener.closed){
+    window.opener.focus();
+  }
+  window.close();
 }
 
-function formatContactName(n){
- if(n==="Mr. Ray") return "Misterray";
- return n.toLowerCase().replace(/[^a-z0-9]/g,'');
+function formatContactName(name){
+  if(name === "Mr. Ray") return "Misterray";
+  return name.toLowerCase().replace(/[^a-z0-9]/g,'');
 }
 
-function openContact(n){
- location.href=`https://projectsofkhan.github.io/Trail/apps/phone/contacts/${formatContactName(n)}/index.html`;
+function openContact(name){
+  const path = formatContactName(name);
+  window.location.href =
+    `https://projectsofkhan.github.io/Trail/apps/phone/contacts/${path}/index.html`;
 }
 
-function showPasswordPrompt(n){
- currentContact=n;
- document.getElementById("passwordContactName").textContent=`to access ${n}`;
- document.getElementById("passwordOverlay").style.display="flex";
+function showPasswordPrompt(name){
+  currentContact = name;
+  document.getElementById("passwordContactName").textContent =
+    `to access ${name}`;
+  document.getElementById("passwordOverlay").style.display = "flex";
 }
 
 function closePasswordPrompt(){
- document.getElementById("passwordOverlay").style.display="none";
+  document.getElementById("passwordOverlay").style.display = "none";
+  document.getElementById("passwordInput").value = "";
 }
 
 function checkPassword(){
- const input=document.getElementById("passwordInput");
- if(input.value) openContact(currentContact);
+  const val = document.getElementById("passwordInput").value;
+  if(val.length > 0){
+    openContact(currentContact);
+  }
 }
 
-window.onload=()=>{
- updateTime();
- setInterval(updateTime,60000);
- document.querySelector(".back-button").onclick=closeAppAndReturnHome;
+window.onload = () => {
+  updateTime();
+  setInterval(updateTime,60000);
+  document.querySelector(".back-button").onclick = closeAppAndReturnHome;
 };
