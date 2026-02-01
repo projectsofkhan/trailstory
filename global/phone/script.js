@@ -1,97 +1,96 @@
-// Global Mobile Functionality Script
+// global/script.js
 
-// DOM Elements
-const panel = document.getElementById("controlPanel");
-const bar = document.getElementById("statusBar");
-const music1 = document.getElementById("bgMusic1");
-const music2 = document.getElementById("bgMusic2");
-const musicToggleText = document.getElementById("musicToggleText");
-const musicStatusIndicator = document.getElementById("musicStatusIndicator");
+(() => {
+  const panel = document.getElementById("controlPanel");
+  const bar = document.getElementById("statusBar");
+  const music1 = document.getElementById("bgMusic1");
+  const music2 = document.getElementById("bgMusic2");
+  const musicText = document.getElementById("musicToggleText");
+  const musicDot = document.getElementById("musicStatusIndicator");
 
-let startY = 0, drag = false;
-let musicOn = false;
-let currentMusic = null;
+  let startY = 0, dragging = false;
+  let musicOn = false, currentMusic = null;
 
-// Play click sound
-function playClickSound() {
-    const sound = new Audio('https://projectsofkhan.github.io/Trail/sounds/click.mp3');
-    sound.volume = 0.3;
-    sound.play().catch(() => {});
-}
+  function playClick() {
+    const click = new Audio("https://projectsofkhan.github.io/Trail/sounds/click.mp3");
+    click.volume = 0.3;
+    click.play().catch(() => {});
+  }
 
-// Pull-down control panel (touch/mouse)
-function initializePullDown() {
+  function openPanel() {
+    panel?.classList.add("open");
+  }
+
+  function closePanel() {
+    panel?.classList.remove("open");
+  }
+
+  function initPullDown() {
     if (!bar || !panel) return;
 
-    // Touch events
-    bar.addEventListener("touchstart", e => { startY = e.touches[0].clientY; drag = true; });
+    bar.addEventListener("touchstart", e => {
+      startY = e.touches[0].clientY;
+      dragging = true;
+    });
+
     bar.addEventListener("touchmove", e => {
-        if (!drag) return;
-        if (e.touches[0].clientY - startY > 55) { panel.classList.add("open"); drag = false; }
+      if (!dragging) return;
+      if (e.touches[0].clientY - startY > 70) {
+        openPanel();
+        dragging = false;
+      }
     });
-    bar.addEventListener("touchend", () => drag = false);
 
-    // Mouse support for testing
-    bar.addEventListener("mousedown", e => { startY = e.clientY; drag = true; });
-    bar.addEventListener("mousemove", e => { if (drag && e.clientY - startY > 55) { panel.classList.add("open"); drag = false; } });
-    bar.addEventListener("mouseup", () => drag = false);
+    bar.addEventListener("touchend", () => dragging = false);
 
-    // Click outside to close
     document.addEventListener("click", e => {
-        if (panel.classList.contains("open") &&
-            !panel.contains(e.target) &&
-            !bar.contains(e.target)) panel.classList.remove("open");
+      if (panel?.classList.contains("open")) {
+        if (!panel.contains(e.target) && !bar.contains(e.target)) closePanel();
+      }
     });
-}
+  }
 
-// Music controls
-function updateMusicUI() {
-    if (musicToggleText) musicToggleText.textContent = musicOn ? "Turn Off Music" : "Turn On Music";
-    if (musicStatusIndicator) musicStatusIndicator.className = musicOn ? "status-indicator" : "status-indicator off";
-}
+  function updateMusicUI() {
+    if (musicText) musicText.textContent = musicOn ? "Turn off music" : "Turn on music";
+    if (musicDot) musicDot.className = musicOn ? "status-indicator" : "status-indicator off";
+  }
 
-function toggleMusic() {
-    playClickSound();
+  function toggleMusic() {
+    playClick();
     if (musicOn) {
-        musicOn = false; currentMusic = null;
-        music1?.pause(); music2?.pause();
-    } else playMusic1();
+      music1?.pause(); music2?.pause();
+      musicOn = false; currentMusic = null;
+    } else {
+      playMusic1();
+    }
     updateMusicUI();
-}
+  }
 
-function playMusic1() {
-    playClickSound();
+  function playMusic1() {
+    playClick();
     music2?.pause();
     if (music1) { music1.currentTime = 0; music1.play().catch(() => {}); }
-    musicOn = true; currentMusic = "music1";
-    updateMusicUI(); panel?.classList.remove("open");
-}
+    musicOn = true; currentMusic = "m1";
+    updateMusicUI(); closePanel();
+  }
 
-function playMusic2() {
-    playClickSound();
+  function playMusic2() {
+    playClick();
     music1?.pause();
     if (music2) { music2.currentTime = 0; music2.play().catch(() => {}); }
-    musicOn = true; currentMusic = "music2";
-    updateMusicUI(); panel?.classList.remove("open");
-}
+    musicOn = true; currentMusic = "m2";
+    updateMusicUI(); closePanel();
+  }
 
-// Click sounds for all interactive elements
-function setupClickSounds() {
-    document.addEventListener("click", e => {
-        const t = e.target;
-        if (t.tagName === 'BUTTON' || t.tagName === 'A' ||
-            t.closest('.app-icon') || t.closest('.music-control-btn') ||
-            t.closest('.status-bar') || t.closest('.close-panel') ||
-            t.hasAttribute('onclick') || t.classList.contains('clickable') ||
-            (t.parentElement && t.parentElement.classList.contains('clickable'))) {
-            playClickSound();
-        }
-    });
-}
+  document.addEventListener("click", e => {
+    const tgt = e.target;
+    if (tgt.closest(".music-btn")) playClick();
+  });
 
-// Initialize global mobile scripts
-window.addEventListener("load", () => {
-    initializePullDown();
-    setupClickSounds();
-    console.log("✅ Global mobile functionalities ready");
-});
+  window.addEventListener("load", () => {
+    initPullDown();
+    updateMusicUI();
+  });
+
+  window.phoneControls = { toggleMusic, playMusic1, playMusic2 };
+})();
