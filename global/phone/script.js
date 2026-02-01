@@ -1,96 +1,148 @@
-// Global phone JS - Home screen like behavior
+// Global phone functionality - updated for home-screen behavior
 (() => {
-  const controlPanel = document.getElementById('controlPanel');
-  const statusBar = document.getElementById('statusBar');
-  const music1 = document.getElementById('bgMusic1');
-  const music2 = document.getElementById('bgMusic2');
-  const musicText = document.getElementById('musicToggleText');
-  const musicDot = document.getElementById('musicStatusIndicator');
+    const appGrid = document.getElementById('appGrid');
+    const currentTimeElement = document.getElementById('current-time');
+    const controlPanel = document.getElementById('controlPanel');
+    const statusBar = document.getElementById('statusBar');
+    const musicToggleText = document.getElementById('musicToggleText');
+    const musicStatusIndicator = document.getElementById('musicStatusIndicator');
 
-  let dragging = false;
-  let startY = 0;
-  let musicOn = false;
-  let currentMusic = null;
+    const apps = [
+        { id: 'messages', name: 'Messages', icon: '💬', color: '#579AD9', file: 'apps/messages/index.html' },
+        { id: 'phone', name: 'Phone', icon: '📞', color: '#6BBF6B', file: 'apps/phone/index.html' },
+        { id: 'gallery', name: 'Gallery', icon: '🌄', color: '#6A618F', file: 'apps/gallery/index.html' },
+        { id: 'pixabowl', name: 'Instashan', icon: 'https://projectsofkhan.github.io/pythontodoapp/instashan.jpg', color: '#9B5BBE', file: 'apps/instashan/index.html' },
+        { id: 'diary', name: 'Diary', icon: '📖', color: '#A08E77', file: 'apps/diary/index.html' },
+        { id: 'browser', name: 'Browser', icon: '🌐', color: '#5D6B9C', file: 'apps/browser/index.html' },
+        { id: 'taskmanager', name: 'Tasks', icon: '📋', color: '#FF6B6B', file: 'apps/task/index.html' },
+        { id: 'settings', name: 'Settings', icon: '⚙️', color: '#555555', file: 'apps/settings/index.html' }
+    ];
 
-  function playClick() {
-    const audio = new Audio('https://projectsofkhan.github.io/Trail/sounds/click.mp3');
-    audio.volume = 0.3;
-    audio.play().catch(()=>{});
-  }
+    let musicOn = false;
+    let currentMusic = null;
+    let bgMusic1 = null;
+    let bgMusic2 = null;
 
-  function openPanel(){ controlPanel?.classList.add('open'); }
-  function closePanel(){ controlPanel?.classList.remove('open'); }
+    function playClickSound() {
+        const sound = new Audio('https://projectsofkhan.github.io/Trail/sounds/click.mp3');
+        sound.volume = 0.3;
+        sound.play().catch(() => {});
+    }
 
-  function updateMusicUI(){
-    if(musicText) musicText.textContent = musicOn ? 'Turn Off Music' : 'Turn On Music';
-    if(musicDot) musicDot.className = musicOn ? 'status-indicator' : 'status-indicator off';
-  }
+    function setupClickSounds() {
+        document.addEventListener('click', e => {
+            const t = e.target;
+            if (t.closest('.app-icon, .music-control-btn, .status-bar, button, a, .close-panel')) playClickSound();
+        });
+    }
 
-  function playMusic1(){
-    playClick();
-    if(music2) music2.pause();
-    if(music1){ music1.currentTime = 0; music1.play().catch(()=>{}); }
-    musicOn=true; currentMusic='music1';
-    updateMusicUI(); closePanel();
-  }
+    function initializeMusic() {
+        bgMusic1 = document.getElementById('bgMusic1');
+        bgMusic2 = document.getElementById('bgMusic2');
 
-  function playMusic2(){
-    playClick();
-    if(music1) music1.pause();
-    if(music2){ music2.currentTime=0; music2.play().catch(()=>{}); }
-    musicOn=true; currentMusic='music2';
-    updateMusicUI(); closePanel();
-  }
+        [bgMusic1, bgMusic2].forEach(m => {
+            if (m) { m.volume = 0.3; m.preload = 'auto'; }
+        });
 
-  function toggleMusic(){
-    playClick();
-    if(musicOn){
-      if(music1) music1.pause();
-      if(music2) music2.pause();
-      musicOn=false; currentMusic=null;
-    } else playMusic1();
-    updateMusicUI();
-  }
+        updateMusicUI();
+    }
 
-  // Pull-down panel
-  function initPullDown(){
-    if(!statusBar || !controlPanel) return;
+    function updateMusicUI() {
+        if (musicToggleText) musicToggleText.textContent = musicOn ? 'Turn Off Music' : 'Turn On Music';
+        if (musicStatusIndicator) musicStatusIndicator.className = musicOn ? 'status-indicator' : 'status-indicator off';
+    }
 
-    const threshold = 55;
-    statusBar.addEventListener('touchstart', e => { startY=e.touches[0].clientY; dragging=true; });
-    statusBar.addEventListener('touchmove', e => {
-      if(!dragging) return;
-      if(e.touches[0].clientY - startY > threshold) { openPanel(); dragging=false; }
-    });
-    statusBar.addEventListener('touchend', ()=>dragging=false);
+    function toggleMusic() {
+        playClickSound();
+        if (musicOn) {
+            if (bgMusic1) bgMusic1.pause();
+            if (bgMusic2) bgMusic2.pause();
+            musicOn = false; currentMusic = null;
+        } else playMusicOne();
+        updateMusicUI();
+        closeControlPanel();
+    }
 
-    // Mouse support
-    statusBar.addEventListener('mousedown', e=>{ startY=e.clientY; dragging=true; });
-    statusBar.addEventListener('mousemove', e=>{ if(dragging && e.clientY-startY>threshold){ openPanel(); dragging=false; } });
-    statusBar.addEventListener('mouseup', ()=>dragging=false);
+    function playMusicOne() {
+        playClickSound();
+        if (bgMusic2) bgMusic2.pause();
+        if (bgMusic1) { bgMusic1.currentTime = 0; bgMusic1.play().catch(() => {}); musicOn = true; currentMusic = 'music1'; }
+        updateMusicUI(); closeControlPanel();
+    }
 
-    document.addEventListener('click', e => {
-      if(controlPanel.classList.contains('open') && !controlPanel.contains(e.target) && !statusBar.contains(e.target)){
-        closePanel();
-      }
-    });
-  }
+    function playMusicTwo() {
+        playClickSound();
+        if (bgMusic1) bgMusic1.pause();
+        if (bgMusic2) { bgMusic2.currentTime = 0; bgMusic2.play().catch(() => {}); musicOn = true; currentMusic = 'music2'; }
+        updateMusicUI(); closeControlPanel();
+    }
 
-  // Click sounds for all interactions
-  function initClickSounds(){
-    document.addEventListener('click', e=>{
-      const t = e.target;
-      if(t.closest('.app-icon, .music-control-btn, .status-bar, button, a, .close-panel')) playClick();
-    });
-  }
+    function openControlPanel() { playClickSound(); controlPanel.classList.add('open'); }
+    function closeControlPanel() { playClickSound(); controlPanel.classList.remove('open'); }
 
-  // Initialize everything on load
-  window.addEventListener('load', ()=>{
-    initPullDown();
-    initClickSounds();
-    updateMusicUI();
-    console.log('✅ Global phone scripts loaded - pull-down, music, click sounds all functional');
-  });
+    function initializePullDown() {
+        let startY = 0, dragging = false;
 
-  window.phoneControls = { toggleMusic, playMusic1, playMusic2 };
+        function dragStart(e){ startY = e.touches ? e.touches[0].clientY : e.clientY; dragging = true; }
+        function dragMove(e){
+            if(!dragging) return;
+            const y = e.touches ? e.touches[0].clientY : e.clientY;
+            if (y - startY > 60) { openControlPanel(); dragging = false; }
+        }
+        function dragEnd(){ dragging = false; }
+
+        statusBar.addEventListener('touchstart', dragStart);
+        statusBar.addEventListener('touchmove', dragMove);
+        statusBar.addEventListener('touchend', dragEnd);
+
+        statusBar.addEventListener('mousedown', dragStart);
+        statusBar.addEventListener('mousemove', dragMove);
+        statusBar.addEventListener('mouseup', dragEnd);
+
+        document.addEventListener('click', e => {
+            if (controlPanel.classList.contains('open') &&
+                !controlPanel.contains(e.target) && !statusBar.contains(e.target)) closeControlPanel();
+        });
+    }
+
+    function updateTime() {
+        const now = new Date();
+        const h = now.getHours();
+        const m = String(now.getMinutes()).padStart(2,'0');
+        if (currentTimeElement) currentTimeElement.textContent = `${h}:${m}`;
+    }
+
+    function initializeAppGrid() {
+        if (!appGrid) return;
+        apps.forEach(app => {
+            const link = document.createElement('a');
+            link.className = 'app-icon';
+            link.href = app.file;
+            link.target = "_blank";
+
+            const isImage = app.icon.startsWith('http') || app.icon.endsWith('.jpg') || app.icon.endsWith('.png');
+
+            let iconHTML = isImage ? `<img src="${app.icon}" alt="${app.name}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">` :
+                                     `<div style="font-size:28px; display:flex; align-items:center; justify-content:center; width:100%; height:100%;">${app.icon}</div>`;
+
+            link.innerHTML = `
+                <div class="app-icon-body" style="background-color: ${app.color}; padding: 0; overflow: hidden;">
+                    ${iconHTML}
+                </div>
+                <div class="app-icon-label">${app.name}</div>
+            `;
+            appGrid.appendChild(link);
+        });
+    }
+
+    window.onload = function() {
+        initializeAppGrid();
+        updateTime();
+        initializeMusic();
+        initializePullDown();
+        setupClickSounds();
+        setInterval(updateTime, 60000);
+    };
+
+    window.phoneControls = { toggleMusic, playMusicOne, playMusicTwo };
 })();
