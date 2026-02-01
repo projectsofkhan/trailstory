@@ -1,32 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Phone</title>
-    <link rel="stylesheet" href="../../style.css">
+<meta charset="UTF-8">
+<title>Phone</title>
+
+<!-- MOBILE (device shell) -->
+<link rel="stylesheet" href="../../global/phone/style.css">
+
+<!-- PHONE APP -->
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="home-screen">
-        <div class="app-header">
-            <button onclick="window.location.href='../../index.html'">⬅ Back</button>
-            <h1>Phone</h1>
+<div class="mobile-screen">
+
+    <div class="phone-app">
+        <header class="phone-header">
+            <button onclick="goBack()">⬅</button>
+            <span>Phone</span>
+        </header>
+
+        <div class="phone-display" id="display"></div>
+
+        <div class="dialpad">
+            <button onclick="press('1')">1</button>
+            <button onclick="press('2')">2</button>
+            <button onclick="press('3')">3</button>
+
+            <button onclick="press('4')">4</button>
+            <button onclick="press('5')">5</button>
+            <button onclick="press('6')">6</button>
+
+            <button onclick="press('7')">7</button>
+            <button onclick="press('8')">8</button>
+            <button onclick="press('9')">9</button>
+
+            <button onclick="press('*')">*</button>
+            <button onclick="press('0')">0</button>
+            <button onclick="press('#')">#</button>
         </div>
 
-        <div class="phone-app">
-            <p>Phone app interface:</p>
-            <ul>
-                <li><a href="contacts/dad/index.html">Dad</a></li>
-                <li><a href="contacts/dyere/index.html">Dyere</a></li>
-                <li><a href="contacts/friend1/index.html">Friend 1</a></li>
-                <li><a href="contacts/friend2/index.html">Friend 2</a></li>
-                <li><a href="contacts/friend3/index.html">Friend 3</a></li>
-                <li><a href="contacts/friend4/index.html">Friend 4</a></li>
-                <li><a href="contacts/friend5/index.html">Friend 5</a></li>
-                <li><a href="contacts/friend6/index.html">Friend 6</a></li>
-                <li><a href="contacts/friend7/index.html">Friend 7</a></li>
-            </ul>
-        </div>
+        <footer class="phone-footer">
+            <button class="call">📞</button>
+            <button class="clear" onclick="clearAll()">✖</button>
+        </footer>
     </div>
-    <script src="../../script.js"></script>
+
+</div>
+
+<!-- MOBILE SCRIPT -->
+<script src="../../global/phone/script.js"></script>
+
+<!-- PHONE APP SCRIPT -->
+<script src="script.js"></script>
 </body>
 </html>
