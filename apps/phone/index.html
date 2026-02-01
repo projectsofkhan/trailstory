@@ -1,54 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Phone</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>Phone</title>
 
-<!-- MOBILE (device shell) -->
-<link rel="stylesheet" href="../../global/phone/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- PHONE APP -->
-<link rel="stylesheet" href="style.css">
+  <!-- GLOBAL MOBILE STYLE -->
+  <link rel="stylesheet" href="../../global/phone/style.css">
+
+  <!-- PHONE APP STYLE -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<div class="mobile-screen">
+<div class="phone-wrapper">
+  <div class="phone-container">
 
-    <div class="phone-app">
-        <header class="phone-header">
-            <button onclick="goBack()">⬅</button>
-            <span>Phone</span>
-        </header>
+    <div class="notch"></div>
 
-        <div class="phone-display" id="display"></div>
+    <div class="screen">
 
-        <div class="dialpad">
-            <button onclick="press('1')">1</button>
-            <button onclick="press('2')">2</button>
-            <button onclick="press('3')">3</button>
+      <div class="status-bar" id="statusBar">
+        <div>◇ <span id="current-time">00:00</span></div>
+        <div>Phone</div>
+        <div>📶 🔋</div>
+      </div>
 
-            <button onclick="press('4')">4</button>
-            <button onclick="press('5')">5</button>
-            <button onclick="press('6')">6</button>
+      <div class="app-page">
 
-            <button onclick="press('7')">7</button>
-            <button onclick="press('8')">8</button>
-            <button onclick="press('9')">9</button>
-
-            <button onclick="press('*')">*</button>
-            <button onclick="press('0')">0</button>
-            <button onclick="press('#')">#</button>
+        <div class="app-header dark">
+          <button class="back-button">←</button>
+          <div class="app-title">Contacts</div>
+          <div style="width:40px"></div>
         </div>
 
-        <footer class="phone-footer">
-            <button class="call">📞</button>
-            <button class="clear" onclick="clearAll()">✖</button>
-        </footer>
+        <div class="app-content">
+
+          <div class="phone-header">
+            <div class="phone-logo">📞</div>
+            <div class="phone-subtitle">Your contacts</div>
+          </div>
+
+          <div class="contacts-section">
+            <div class="contacts-container">
+
+              <div class="contacts-list">
+
+                <div class="contact-item" onclick="openContact('Mr. Ray')">
+                  <div class="contact-avatar">👨‍💼</div>
+                  <div class="contact-info">
+                    <div class="contact-name">Mr. Ray</div>
+                    <div class="contact-number">+1 (555) 123-4567</div>
+                  </div>
+                </div>
+
+                <div class="contact-item" onclick="openContact('Dyere')">
+                  <div class="contact-avatar">👨‍🔧</div>
+                  <div class="contact-info">
+                    <div class="contact-name">Dyere</div>
+                    <div class="contact-number">+1 (555) 234-5678</div>
+                  </div>
+                </div>
+
+                <div class="contact-item locked" onclick="showPasswordPrompt('Dad')">
+                  <div class="contact-avatar">👨</div>
+                  <div class="contact-info">
+                    <div class="contact-name">Dad</div>
+                    <div class="contact-number">+1 (555) 890-1234</div>
+                  </div>
+                  <div class="contact-lock">🔒</div>
+                </div>
+
+              </div>
+
+              <div class="contacts-warning">
+                ⚠️ Some contacts cannot be restored
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
+    <div class="home-bar"></div>
+
+  </div>
 </div>
 
-<!-- MOBILE SCRIPT -->
+<!-- PASSWORD OVERLAY -->
+<div id="passwordOverlay" class="password-overlay">
+  <div class="password-container">
+    <div class="password-title">Enter Password</div>
+    <div id="passwordContactName" class="password-subtitle"></div>
+    <input id="passwordInput" class="password-input" type="password" maxlength="4">
+    <div class="password-actions">
+      <button onclick="closePasswordPrompt()">Cancel</button>
+      <button onclick="checkPassword()">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<!-- GLOBAL MOBILE SCRIPT -->
 <script src="../../global/phone/script.js"></script>
 
 <!-- PHONE APP SCRIPT -->
