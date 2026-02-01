@@ -1,114 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#000000">
-  <title>Phone</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>Phone</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- GLOBAL MOBILE STYLE -->
-  <link rel="stylesheet" href="../../global/phone/style.css">
+<!-- GLOBAL MOBILE -->
+<link rel="stylesheet" href="../../global/phone/style.css">
 
-  <!-- PHONE APP STYLE -->
-  <link rel="stylesheet" href="style.css">
+<!-- PHONE APP -->
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 <div class="phone-wrapper">
-  <div class="phone-container">
+<div class="phone-container">
 
-    <div class="notch"></div>
+<div class="notch"></div>
 
-    <div class="screen">
+<div class="screen">
 
-      <div class="status-bar" id="statusBar">
-        <div>◇ <span id="current-time">00:00</span></div>
-        <div>Phone</div>
-        <div>📶 🔋</div>
-      </div>
-
-      <div class="app-page">
-
-        <div class="app-header dark">
-          <button class="back-button">←</button>
-          <div class="app-title">Contacts</div>
-          <div style="width:40px"></div>
-        </div>
-
-        <div class="app-content">
-
-          <div class="phone-header">
-            <div class="phone-logo">📞</div>
-            <div class="phone-subtitle">Your contacts</div>
-          </div>
-
-          <div class="contacts-section">
-            <div class="contacts-container">
-
-              <div class="contacts-list">
-
-                <div class="contact-item" onclick="openContact('Mr. Ray')">
-                  <div class="contact-avatar">👨‍💼</div>
-                  <div class="contact-info">
-                    <div class="contact-name">Mr. Ray</div>
-                    <div class="contact-number">+1 (555) 123-4567</div>
-                  </div>
-                </div>
-
-                <div class="contact-item" onclick="openContact('Dyere')">
-                  <div class="contact-avatar">👨‍🔧</div>
-                  <div class="contact-info">
-                    <div class="contact-name">Dyere</div>
-                    <div class="contact-number">+1 (555) 234-5678</div>
-                  </div>
-                </div>
-
-                <div class="contact-item locked" onclick="showPasswordPrompt('Dad')">
-                  <div class="contact-avatar">👨</div>
-                  <div class="contact-info">
-                    <div class="contact-name">Dad</div>
-                    <div class="contact-number">+1 (555) 890-1234</div>
-                  </div>
-                  <div class="contact-lock">🔒</div>
-                </div>
-
-              </div>
-
-              <div class="contacts-warning">
-                ⚠️ Some contacts cannot be restored
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="home-bar"></div>
-
+<!-- REQUIRED BY GLOBAL SCRIPT -->
+<div id="controlPanel" class="control-panel">
+  <div class="qc-left">
+    <div class="music-icon">🎵</div>
+    <div class="music-label">Music</div>
+  </div>
+  <div class="qc-right">
+    <div class="qc-app"><div class="qc-app-icon">📶</div>Data</div>
+    <div class="qc-app"><div class="qc-app-icon">🔊</div>Sound</div>
+    <div class="qc-app"><div class="qc-app-icon">🔦</div>Flash</div>
+    <div class="qc-app"><div class="qc-app-icon">✈️</div>Air</div>
   </div>
 </div>
 
-<!-- PASSWORD OVERLAY -->
+<div id="statusBar" class="status-bar">
+  <div>◇ <span id="current-time">00:00</span></div>
+  <div>Phone</div>
+  <div>📶 🔋</div>
+</div>
+
+<div class="app-page">
+<div class="app-header">
+  <button class="back-button">←</button>
+  <div class="app-title">Contacts</div>
+  <div style="width:40px"></div>
+</div>
+
+<div class="app-content">
+
+<div class="phone-header">
+  <div class="phone-logo">📞</div>
+  <div class="phone-subtitle">Your contacts</div>
+</div>
+
+<div class="contacts-section">
+<div class="contacts-container">
+
+<div class="contact-item" onclick="openContact('Mr. Ray')">
+  <div class="contact-avatar">👨‍💼</div>
+  <div>
+    <div class="contact-name">Mr. Ray</div>
+    <div class="contact-number">+1 555 123 4567</div>
+  </div>
+</div>
+
+<div class="contact-item locked" onclick="showPasswordPrompt('Dad')">
+  <div class="contact-avatar">👨</div>
+  <div>
+    <div class="contact-name">Dad</div>
+    <div class="contact-number">+1 555 890 1234</div>
+  </div>
+  <div class="contact-lock">🔒</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="home-bar"></div>
+
+</div>
+</div>
+
+<!-- PASSWORD -->
 <div id="passwordOverlay" class="password-overlay">
-  <div class="password-container">
-    <div class="password-title">Enter Password</div>
-    <div id="passwordContactName" class="password-subtitle"></div>
-    <input id="passwordInput" class="password-input" type="password" maxlength="4">
-    <div class="password-actions">
-      <button onclick="closePasswordPrompt()">Cancel</button>
-      <button onclick="checkPassword()">Unlock</button>
-    </div>
+<div class="password-container">
+  <div class="password-title">Enter Password</div>
+  <div id="passwordContactName" class="password-subtitle"></div>
+  <input id="passwordInput" class="password-input" type="password" maxlength="4">
+  <div class="password-actions">
+    <button onclick="closePasswordPrompt()">Cancel</button>
+    <button onclick="checkPassword()">Unlock</button>
   </div>
 </div>
+</div>
 
-<!-- GLOBAL MOBILE SCRIPT -->
 <script src="../../global/phone/script.js"></script>
-
-<!-- PHONE APP SCRIPT -->
 <script src="script.js"></script>
 </body>
 </html>
