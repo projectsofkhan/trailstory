@@ -1,126 +1,47 @@
-/* global/style.css */
+/* Global mobile styles for all phones */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+*{margin:0;padding:0;box-sizing:border-box;user-select:none;-webkit-tap-highlight-color:transparent;}
+
+body{background:#222;font-family:Inter,sans-serif;overflow:hidden;}
+
+.phone-wrapper{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:12px;}
+
+.phone-container{
+  width:340px;height:650px;background:#111;border-radius:32px;padding:10px;
+  position:relative;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.7);
 }
 
-body {
-  background: #222;
-  font-family: Inter, sans-serif;
-  overflow: hidden;
+.notch{width:120px;height:26px;background:#111;border-radius:0 0 18px 18px;margin:10px auto;}
+
+.screen{height:calc(100% - 36px);background:black;border-radius:24px;overflow:hidden;position:relative;}
+
+.status-bar{
+  height:36px;padding:0 14px;display:flex;justify-content:space-between;align-items:center;
+  color:white;font-size:11px;position:absolute;top:0;width:100%;z-index:20;cursor:pointer;
 }
 
-.phone-wrapper {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px;
+.control-panel{
+  position:absolute;top:-330px;left:0;width:100%;height:330px;
+  background:rgba(0,0,0,.94);border-radius:0 0 22px 22px;padding:42px 18px 18px;
+  transition:top .3s ease;z-index:30;
 }
 
-.phone-container {
-  width: 340px;
-  height: 650px;
-  background: #111;
-  border-radius: 32px;
-  padding: 10px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+.control-panel.open{top:0;}
+
+.music-controls{display:flex;flex-direction:column;gap:12px;}
+
+.music-btn{
+  display:flex;align-items:center;padding:12px;background:rgba(255,255,255,.12);
+  border-radius:12px;font-size:15px;color:white;cursor:pointer;transition:.2s ease;
 }
 
-.notch {
-  width: 120px;
-  height: 26px;
-  background: #111;
-  border-radius: 0 0 18px 18px;
-  margin: 10px auto;
-}
+.music-btn:active{transform:scale(.97);background:rgba(255,255,255,.22);}
 
-.screen {
-  height: calc(100% - 36px);
-  background: black;
-  border-radius: 24px;
-  overflow: hidden;
-  position: relative;
-}
+.status-indicator,.status-indicator.off{width:8px;height:8px;border-radius:50%;}
+.status-indicator{background:#4CAF50;}
+.status-indicator.off{background:#FF6B6B;}
 
-.status-bar {
-  height: 36px;
-  padding: 0 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  font-size: 11px;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 20;
-  cursor: pointer;
-}
-
-.control-panel {
-  position: absolute;
-  top: -330px;
-  left: 0;
-  width: 100%;
-  height: 330px;
-  background: rgba(0, 0, 0, 0.94);
-  border-radius: 0 0 22px 22px;
-  padding: 42px 18px 18px;
-  transition: top .3s ease;
-  z-index: 30;
-}
-
-.control-panel.open {
-  top: 0;
-}
-
-.music-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.music-btn {
-  display: flex;
-  align-items: center;
-  padding: 12px;
-  background: rgba(255, 255, 255, .12);
-  border-radius: 12px;
-  font-size: 15px;
-  color: white;
-  cursor: pointer;
-  transition: .2s ease;
-}
-
-.music-btn:active {
-  transform: scale(.97);
-  background: rgba(255, 255, 255, .22);
-}
-
-.status-indicator,
-.status-indicator.off {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.status-indicator { background: #4CAF50; }
-.status-indicator.off { background: #FF6B6B; }
-
-.home-bar {
-  position: absolute;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 4px;
-  background: rgba(255, 255, 255, .35);
-  border-radius: 10px;
+.home-bar{
+  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+  width:100px;height:4px;background:rgba(255,255,255,.35);border-radius:10px;
 }
